@@ -8,7 +8,7 @@ using DataAccessLayer.Models;
 
 namespace Services.Services
 {
-    internal interface IAccountService
+    public interface IAccountService
     {
         List<Account> GetAccounts();
         void Update(Account account);

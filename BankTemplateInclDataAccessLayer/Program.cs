@@ -2,6 +2,7 @@ using DataAccessLayer;
 using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Services.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages();
 
 builder.Services.AddTransient<DataInitializer>();
+
+builder.Services.AddTransient<IAccountService, AccountService>();
 
 builder.Services.AddDbContext<BankAppDataContext>(options =>
     options.UseSqlServer(connectionString));

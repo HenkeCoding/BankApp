@@ -1,0 +1,22 @@
+﻿@page
+@model BankTemplateInclDataAccessLayer.Pages.AccountDB.IndexModel
+
+
+
+
+<table style="width:100%">
+    <tr>
+        <th>Account ID</th>
+        <th>Balance</th>
+        <th>Frequency</th>
+    </tr>
+    @foreach (var account in Model.Accounts)
+    {
+        <tr>
+            <td>@account.AccountId</td>
+            <td>@account.Balance</td>
+            <td>@account.Frequency</td>
+        </tr>
+    }
+
+</table>
