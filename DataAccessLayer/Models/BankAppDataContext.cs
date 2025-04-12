@@ -27,7 +27,7 @@ public partial class BankAppDataContext : IdentityDbContext
 
     public virtual DbSet<Loan> Loans { get; set; }
 
-    public virtual DbSet<PermanentOrder> PermenentOrders { get; set; }
+    public virtual DbSet<PermanentOrder> PermanentOrders { get; set; }
 
     public virtual DbSet<Transaction> Transactions { get; set; }
 

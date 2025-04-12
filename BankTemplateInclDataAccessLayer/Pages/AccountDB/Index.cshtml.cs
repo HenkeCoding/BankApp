@@ -1,8 +1,7 @@
+using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.Services;
-using DataAccessLayer.Models;
 
 
 namespace BankTemplateInclDataAccessLayer.Pages.AccountDB;
@@ -21,13 +20,6 @@ public class IndexModel : PageModel
 
         public decimal Balance { get; set; }
 
-        public virtual ICollection<Disposition> Dispositions { get; set; } = new List<Disposition>();
-
-        public virtual ICollection<Loan> Loans { get; set; } = new List<Loan>();
-
-        public virtual ICollection<PermanentOrder> PermanentOrders { get; set; } = new List<PermanentOrder>();
-
-        public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
     }
 
 
@@ -38,24 +30,19 @@ public class IndexModel : PageModel
         _accountService = accountService;
     }
 
-
-    public IEnumerable<Account> Accounts { get; set; } = new List<Account>();
-
+    public IEnumerable<AccountViewModel> Accounts { get; set; }
 
     public void OnGet()
     {
         Accounts = _accountService.GetAccounts()
-            .Select(x => new Account
+            .Select(x => new AccountViewModel
             {
                 AccountId = x.AccountId,
                 Balance = x.Balance,
                 Frequency = x.Frequency,
-                Created = x.Created,
-                Dispositions = x.Dispositions,
-                Loans = x.Loans,
-                PermanentOrders = x.PermanentOrders,
-                Transactions = x.Transactions
-            }).ToList();
+                Created = x.Created
+            })
+            .ToList();
 
     }
 }

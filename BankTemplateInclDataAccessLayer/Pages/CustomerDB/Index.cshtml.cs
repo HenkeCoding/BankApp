@@ -9,12 +9,15 @@ namespace BankTemplateInclDataAccessLayer.Pages.Customer;
 
 [Authorize(Roles = "Cashier, Admin")]
 
-
-
-
-
-public class IndexModel(IAccountService accountService) : PageModel
+public class IndexModel : PageModel
 {
+    private readonly ICustomerService _customerService;
+    IndexModel(ICustomerService customerService)
+    {
+        _customerService = customerService;
+    }
+
+
     public class CustomerViewModel
     {
         public int Id { get; set; }
