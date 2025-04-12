@@ -1,0 +1,102 @@
+﻿@page
+@model BankTemplateInclDataAccessLayer.Pages.Person.EditModel
+@{
+}
+
+<div class="card">
+    <div class="card-header">
+        <h1>Edit person</h1>
+    </div>
+    <div class="card-body">
+        <form method="post">
+
+
+            <div class="form-group">
+                <label asp-for="Givenname">First name</label>
+                <input class="form-control" asp-for="Givenname">
+                <span asp-validation-for="Givenname" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Surname">Last name</label>
+                <input class="form-control" asp-for="Surname">
+                <span asp-validation-for="Surname" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Gender">Gender</label>
+                <input class="form-control" asp-for="Gender">
+                <span asp-validation-for="Gender" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Streetaddress">Street Address</label>
+                <input class="form-control" asp-for="Streetaddress">
+                <span asp-validation-for="Streetaddress" class="field-validation-error"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="City">City</label>
+                <input class="form-control" asp-for="City">
+                <span asp-validation-for="City" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Zipcode">Zip code</label>
+                <input class="form-control" asp-for="Zipcode">
+                <span asp-validation-for="Zipcode" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Country">Country</label>
+                <input class="form-control" asp-for="Country">
+                <span asp-validation-for="Country" class="field-validation-error"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="CountryCode">Country Code</label>
+                <input class="form-control" asp-for="CountryCode">
+                <span asp-validation-for="CountryCode" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Birthday">Birthday</label>
+                <input class="form-control" asp-for="Birthday">
+                <span asp-validation-for="Birthday" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NationalId">National Id</label>
+                <input class="form-control" asp-for="NationalId">
+                <span asp-validation-for="NationalId" class="field-validation-error"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="Telephonecountrycode">Telephone country code</label>
+                <input class="form-control" asp-for="Telephonecountrycode">
+                <span asp-validation-for="Telephonecountrycode" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Telephonenumber">Telephone number</label>
+                <input class="form-control" asp-for="Telephonenumber">
+                <span asp-validation-for="Telephonenumber" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Emailaddress">Email address</label>
+                <input class="form-control" asp-for="Emailaddress">
+                <span asp-validation-for="Emailaddress" class="field-validation-error"></span>
+            </div>
+
+            <button type="submit" class="btn">Update</button>
+        </form>
+    </div>
+</div>
+

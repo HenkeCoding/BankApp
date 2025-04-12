@@ -1,9 +1,6 @@
-﻿
-
-using DataAccessLayer.Models;
+﻿using DataAccessLayer.Models;
 
 namespace Services.Services;
-
 
 public class HandleAccountService : IHandleAccountService
 {

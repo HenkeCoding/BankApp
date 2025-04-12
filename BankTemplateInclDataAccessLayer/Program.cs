@@ -21,6 +21,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddTransient<DataInitializer>();
 
 builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<ICustomerService, CustomerService>();
+builder.Services.AddTransient<IHandleAccountService, HandleAccountService>();
 
 builder.Services.AddDbContext<BankAppDataContext>(options =>
     options.UseSqlServer(connectionString));

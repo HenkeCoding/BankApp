@@ -2,3 +2,14 @@
 @model BankTemplateInclDataAccessLayer.Pages.CustomerDB.CustomerImageModel
 @{
 }
+
+<h1>Customer Image</h1>
+
+<p> 
+    First name: @Model.Customer.Givenname
+    Last name: @Model.Customer.Surname
+</p>
+
+<p>
+    <a asp-page="Index">Back to List</a>
+</p>

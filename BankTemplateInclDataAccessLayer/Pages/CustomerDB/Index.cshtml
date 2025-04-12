@@ -1,5 +1,40 @@
 ﻿@page
-@model BankTemplateInclDataAccessLayer.Pages.Customer.IndexModel
+@model BankTemplateInclDataAccessLayer.Pages.CustomerDB.IndexModel
 @{
 }
 
+<div class="card">
+    <div class="card-header">
+        <h1>All Customers</h1>
+    </div>
+    <div class="card-body">
+        <p>
+            <a asp-page="CreateNew" class="btn btn-primary">Create New</a>
+        </p>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <tr>
+                <th>Customer ID</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var customer in Model.Customers)
+            {
+                <tr>
+                    <td>@customer.CustomerId</td>
+                    <td></td>
+                    <td>
+                        <a asp-page="CustomerImage" asp-route-customerId="@customer.CustomerId" class="btn btn-primary">View</a>
+                    </td>
+                    <td>
+                        <a asp-page="Edit" asp-route-customerId="@customer.CustomerId" class="btn btn-primary">Edit</a>
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </div>
+</div>
