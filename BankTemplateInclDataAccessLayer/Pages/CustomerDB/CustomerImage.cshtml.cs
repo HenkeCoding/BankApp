@@ -1,25 +1,48 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.Services;
-using DataAccessLayer.Models;
 
-namespace BankTemplateInclDataAccessLayer.Pages.CustomerDB
+namespace BankTemplateInclDataAccessLayer.Pages.CustomerDB;
+
+public class CustomerImageModel : PageModel
 {
-    public class CustomerImageModel : PageModel
+    private readonly ICustomerService _customerService;
+    public CustomerImageModel(ICustomerService customerService)
     {
-        private readonly ICustomerService _customerService;
-        public CustomerImageModel(ICustomerService customerService)
+        _customerService = customerService;
+    }
+
+    public class CustomerViewModel
+    {
+        public string Givenname { get; set; }
+        public string Surname { get; set; }
+    }
+
+    public class DispositionViewModel
+    {
+        public int Id { get; set; }
+        public string AccountNumber { get; set; }
+        public string AccountType { get; set; }
+        public decimal Balance { get; set; }
+    }
+
+    public CustomerViewModel Customer { get; set; }
+
+    public List<DispositionViewModel> Accounts { get; set; }
+
+    public void OnGet(int customerId)
+    {
+        var CustomerDb = _customerService.GetCustomer(customerId);
+
+        Customer = new CustomerViewModel
         {
-            _customerService = customerService;
-        }
+            Givenname = CustomerDb.Givenname,
+            Surname = CustomerDb.Surname
+            
+        };
 
-        public Customer Customer { get; set; }
+        Accounts = CustomerDb.Dispositions
 
-        public void OnGet(int customerId)
-        {
-            Customer = _customerService.GetCustomer(customerId);
-
-
-        }
+        Accounts = new List<AccountViewModel>();
     }
 }

@@ -149,7 +149,17 @@
 
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            <body id="page-top">
+                <!-- Page Wrapper -->
+                <div id="wrapper">
+                    <!-- Content Wrapper -->
+                    <div id="content-wrapper" class="d-flex flex-column">
+                        @RenderBody()
+                    </div>
+                    <!-- End of Content Wrapper -->
+                </div>
+                <!-- End of Page Wrapper -->
+            </body>
         </main>
     </div>
 
