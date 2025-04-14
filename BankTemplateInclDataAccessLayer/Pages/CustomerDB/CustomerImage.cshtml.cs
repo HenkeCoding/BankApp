@@ -28,7 +28,7 @@ public class CustomerImageModel : PageModel
 
     public CustomerViewModel Customer { get; set; }
 
-    public List<DispositionViewModel> Accounts { get; set; }
+    public List<DispositionViewModel> Dispositions { get; set; }
 
     public void OnGet(int customerId)
     {
@@ -41,8 +41,9 @@ public class CustomerImageModel : PageModel
             
         };
 
-        Accounts = CustomerDb.Dispositions
 
-        Accounts = new List<AccountViewModel>();
+        //Dispositions = CustomerDb.Dispositions
+
+        //Accounts = new List<AccountViewModel>();
     }
 }
