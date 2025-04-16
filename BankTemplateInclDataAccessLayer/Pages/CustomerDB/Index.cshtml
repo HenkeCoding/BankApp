@@ -3,38 +3,148 @@
 @{
 }
 
+
+
+
+
 <div class="card">
     <div class="card-header">
         <h1>All Customers</h1>
     </div>
+
+
     <div class="card-body">
-        <p>
-            <a asp-page="CreateNew" class="btn btn-primary">Create New</a>
-        </p>
+        <h3>Page @Model.PageNo of @Model.PageCount   </h3>
+
+
+        @*Search*@
+        <form method="get">
+            <input asp-for="@Model.Q" />
+            <input type="submit" value="Search" />
+        </form>
+
+        Results per page:
+
+        <a class="btn btn-primary"
+           asp-page="/CustomerDB/Index"
+           asp-route-q="@Model.Q"
+           asp-route-sortColumn="@Model.SortColumn"
+           asp-route-sortOrder="@Model.SortOrder"
+           asp-route-pageNo="@Model.PageNo"
+           asp-route-pageSize="10">
+            10
+        </a>
+        <a class="btn btn-primary"
+           asp-page="/CustomerDB/Index"
+           asp-route-q="@Model.Q"
+           asp-route-sortColumn="@Model.SortColumn"
+           asp-route-sortOrder="@Model.SortOrder"
+           asp-route-pageNo="@Model.PageNo"
+           asp-route-pageSize="20">
+            20
+        </a>
+        <a class="btn btn-primary"
+           asp-page="/CustomerDB/Index"
+           asp-route-q="@Model.Q"
+           asp-route-sortColumn="@Model.SortColumn"
+           asp-route-sortOrder="@Model.SortOrder"
+           asp-route-pageNo="@Model.PageNo"
+           asp-route-pageSize="50">
+            50
+        </a>
+
+        <a class="btn btn-primary" 
+           asp-page="CreateNew">
+            Create New
+        </a>
     </div>
+
+
     <div class="card-body">
         <table class="table">
-            <tr>
-                <th>Customer ID</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-            @foreach (var customer in Model.Customers)
-            {
+            <thead>
                 <tr>
-                    <td>@customer.CustomerId</td>
-                    <td></td>
+                    <th>Customer ID</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var customer in Model.Customers)
+                {
+                    <tr>
+                        <td>@customer.CustomerId</td>
+                        <td></td>
+                        <td>
+                            <a asp-page="CustomerImage" asp-route-customerId="@customer.CustomerId" class="btn btn-primary">View</a>
+                        </td>
+                        <td>
+                            <a asp-page="Edit" asp-route-customerId="@customer.CustomerId" class="btn btn-primary">Edit</a>
+                        </td>
+
+                    </tr>
+                }
+
+
+                <tr>
                     <td>
-                        <a asp-page="CustomerImage" asp-route-customerId="@customer.CustomerId" class="btn btn-primary">View</a>
-                    </td>
-                    <td>
-                        <a asp-page="Edit" asp-route-customerId="@customer.CustomerId" class="btn btn-primary">Edit</a>
+                        @if (Model.PageNo != 1)
+                        {
+                            <a class="btn btn-secondary"
+                               asp-page="/CustomerDB/Index"
+                               asp-route-q="@Model.Q"
+                               asp-route-sortColumn="@Model.SortColumn"
+                               asp-route-sortOrder="@Model.SortOrder"
+                               asp-route-pageSize="@Model.PageSize"
+                               asp-route-pageNo="@(Model.PageNo-1)"
+                            >
+                                Prev
+                            </a>
+                        }
                     </td>
 
+
+                    <td colspan="2">
+                        @for (int i = 1; i <= Model.PageCount; i++)
+                        {
+                            <a class="btn @(Model.PageNo == i ? "btn-primary" : "btn-secondary")"
+                               asp-page="/CustomerDB/Index"
+                               asp-route-q="@Model.Q"
+                               asp-route-sortColumn="@Model.SortColumn"
+                               asp-route-sortOrder="@Model.SortOrder"
+                               asp-route-pageSize="@Model.PageSize"
+                               asp-route-pageNo="@i"
+                            >
+                                @i
+                            </a>
+                        }
+                    </td>
+
+
+                    <td>
+                        @if (Model.PageNo != Model.PageCount)
+                        {
+                            <a class="btn btn-secondary"
+                               asp-page="/CustomerDB/Index"
+                               asp-route-q="@Model.Q"
+                               asp-route-sortColumn="@Model.SortColumn"
+                               asp-route-sortOrder="@Model.SortOrder"
+                               asp-route-pageSize="@Model.PageSize"
+                               asp-route-pageNo="@(Model.PageNo + 1)"
+                            >
+                                Next
+                            </a>
+                        }
+                    </td>
+
+
                 </tr>
-            }
+
+            </tbody>
+
         </table>
     </div>
 </div>

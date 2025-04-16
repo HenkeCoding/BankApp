@@ -2,27 +2,96 @@
 @model BankTemplateInclDataAccessLayer.Pages.AccountDB.AccountImageModel
 
 
+<a asp-page="AccountImage" 
+    asp-route-accountId="@Model.AccountId" 
+    asp-route-pageSize="5">
+    <div class="btn btn-primary">
+        5 results
+    </div>
+</a>
+
+<a 
+    asp-page="AccountImage" asp-route-accountId="@Model.AccountId" 
+    asp-route-pageSize="10">
+    <div class="btn btn-primary">
+        10 results
+    </div>
+</a>
+
+<a asp-page="AccountImage" 
+    asp-route-accountId="@Model.AccountId" 
+    asp-route-pageSize="20">
+    <div class="btn btn-primary">
+        20 results
+    </div>
+</a>
+
+
+
 <div class="card">
     <div class="card-header">
         <h1>All Transactions</h1>
     </div>
     <div class="card-body">
-        <table class="table">
+        <table class="table" id="transactions-table">
             <tr>
                 <th>Date</th>
                 <th>Type</th>
                 <th>Operation</th>
                 <th>Amount</th>
+                <th>Balance</th>
+                <th>Symbol</th>
+                <th>Bank</th>
+                
             </tr>
-            @foreach (var transaction in Model.Transactions)
-            {
-                <tr>
-                    <td>@transaction.Date</td>
-                    <td>@transaction.Type</td>
-                    <td>@transaction.Operation</td>
-                    <td>@transaction.Amount</td>
-                </tr>
-            }
+
+
+
+
+
         </table>
+        <a class="btn btn-primary" href="javascript:showMore();">Show More</a>
     </div>
 </div>
+
+
+
+@section Scripts
+{
+    <script>
+        pageNo = 1;
+
+        const accountId = '@Model.AccountId';
+        const pageSize = '@Model.PageSize';
+
+        document.addEventListener("DOMContentLoaded", function () {
+                    showMore();
+                });
+
+
+                function showMore() {
+                    fetch(`AccountImage?handler=ShowMore&pageNo=${pageNo}&accountId=${accountId}&pageSize=${pageSize}`)
+                        .then((response) => response.json())
+                        .then((json) => {
+                            pageNo += 1;
+                            json.listOfTransactions.forEach(drawElements);
+                        });
+                }
+
+
+                function drawElements(element) {
+                    document.querySelector('#transactions-table tbody').innerHTML +=
+                        `<tr>
+                            <td>${new Date(element.date).toLocaleDateString()}</td>
+                            <td>${element.type}</td>
+                            <td>${element.operation}</td>
+                            <td>${element.amount}</td>
+                            <td>${element.balance}</td>
+                            <td>${element.symbol}</td>
+                            <td>${element.bank}</td>
+                        </tr>`;
+                }
+
+
+    </script>
+}

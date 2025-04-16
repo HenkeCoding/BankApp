@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Models;
+using Services.Infrastructure.Paging;
 
 namespace Services.Services;
 
@@ -11,11 +12,13 @@ public class TransactionService : ITransactionService
         _dbContext = dbContext;
     }
 
-    public List<Transaction> GetTransactions(int accountId)
+    public PagedResult<Transaction> GetTransactionsByAccountId(int accountId, int pageNo, int pageSize)
     {
-        return _dbContext.Transactions
+        IEnumerable<Transaction> results = _dbContext.Transactions
             .Where(t => t.AccountId == accountId)
-            .ToList();
+            .OrderBy(t => t.Date);
+
+        return results.GetPaged(pageNo, pageSize);
     }
 
     public Transaction GetTransaction(int transactionId)

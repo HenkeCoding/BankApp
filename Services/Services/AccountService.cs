@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Models;
+using Services.Infrastructure.Paging;
 
 namespace Services.Services;
 public class AccountService : IAccountService
@@ -10,9 +11,14 @@ public class AccountService : IAccountService
         _dbContext = dbContext;
     }
 
-    public List<Account> GetAccounts()
+    public PagedResult<Account> GetAccounts(
+        int pageNo,
+        int pageSize
+        )
     {
-        return _dbContext.Accounts.ToList();
+        IEnumerable<Account> result = _dbContext.Accounts;
+
+        return result.GetPaged(pageNo, pageSize);
     }
 
     public Account GetAccount(int accountId)

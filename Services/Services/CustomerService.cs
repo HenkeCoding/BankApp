@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Models;
+using Services.Infrastructure.Paging;
 
 namespace Services.Services;
 public class CustomerService : ICustomerService
@@ -10,9 +11,25 @@ public class CustomerService : ICustomerService
         _dbContext = dbContext;
     }
 
-    public List<Customer> GetCustomers()
+    public PagedResult<Customer> GetCustomers(
+        int pageNo,
+        int pageSize,
+        string sortColumn,
+        string sortOrder,
+        string q
+        )
     {
-        return _dbContext.Customers.ToList();
+        IEnumerable<Customer> query = _dbContext.Customers;
+
+        if (!string.IsNullOrEmpty(q))
+        {
+            query = query
+                .Where(p => p.Givenname.Contains(q) ||
+                p.Surname.Contains(q));
+        }
+
+
+        return query.GetPaged(pageNo, pageSize);
     }
 
     public Customer GetCustomer(int customerId)

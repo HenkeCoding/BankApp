@@ -1,5 +1,7 @@
+using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using Services.Services;
 
 
@@ -9,6 +11,14 @@ namespace BankTemplateInclDataAccessLayer.Pages.AccountDB;
 
 public class IndexModel : PageModel
 {
+    private readonly IAccountService _accountService;
+    public IndexModel(IAccountService accountService)
+    {
+        _accountService = accountService;
+    }
+
+
+
     public class AccountViewModel
     {
         public int AccountId { get; set; }
@@ -20,26 +30,42 @@ public class IndexModel : PageModel
         public decimal Balance { get; set; }
 
     }
-
-
-    private readonly IAccountService _accountService;
-
-    public IndexModel(IAccountService accountService)
-    {
-        _accountService = accountService;
-    }
-
     public IEnumerable<AccountViewModel> Accounts { get; set; }
 
-    public void OnGet()
+
+
+    public int PageNo { get; set; }
+    public int PageCount { get; set; }
+    public int PageSize { get; set; } = 5;
+
+
+
+
+    public void OnGet(
+        int pageNo,
+        int pageSize,
+        string q
+        )
     {
-        Accounts = _accountService.GetAccounts()
-            .Select(x => new AccountViewModel
+        if (pageNo == 0)
+            pageNo = 1;
+        PageNo = pageNo;
+
+        if (pageSize == 0)
+            pageSize = 5;
+        PageSize = pageSize;
+
+        var result = _accountService.GetAccounts(PageNo, PageSize);
+
+        PageCount = result.PageCount;
+
+        Accounts = result.Results
+            .Select(c => new AccountViewModel
             {
-                AccountId = x.AccountId,
-                Balance = x.Balance,
-                Frequency = x.Frequency,
-                Created = x.Created
+                AccountId = c.AccountId,
+                Balance = c.Balance,
+                Frequency = c.Frequency,
+                Created = c.Created
             })
             .ToList();
 

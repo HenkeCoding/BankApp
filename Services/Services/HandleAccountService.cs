@@ -10,6 +10,7 @@ public class HandleAccountService : IHandleAccountService
     {
         _dbContext = dbContext;
     }
+
     public ErrorCode Withdraw(int accountId, decimal amount)
     {
         var accountDb = _dbContext.Accounts.First(a => a.AccountId == accountId);
