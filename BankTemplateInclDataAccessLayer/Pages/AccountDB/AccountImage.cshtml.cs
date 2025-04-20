@@ -1,11 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.Services;
-using Services.Infrastructure.Paging;
+using BankTemplateInclDataAccessLayer.ViewModels;
 
 namespace BankTemplateInclDataAccessLayer.Pages.AccountDB;
 
-
+[Authorize(Roles = "Cashier, Admin")]
 public class AccountImageModel : PageModel
 {
     private readonly ITransactionService _transactionService;
@@ -16,30 +17,9 @@ public class AccountImageModel : PageModel
         _accountService = accountService;
     }
 
-
     public int AccountId { get; set; }
+    public int CustomerId { get; set; }
     public int PageSize { get; set; } = 5;
-
-
-    public class TransactionViewModel
-    {
-        public int TransactionId { get; set; }
-        public DateOnly Date { get; set; }
-        public string Type { get; set; }
-        public string Operation { get; set; }
-        public decimal Amount { get; set; }
-        public decimal Balance { get; set; }
-        public string? Symbol { get; set; }
-        public string? Bank { get; set; }
-    }
-
-
-    public class AccountViewModel
-    {
-        public string AccountNumber { get; set; }
-        public string AccountType { get; set; }
-        public decimal Balance { get; set; }
-    }
 
 
     public List<TransactionViewModel> Transactions { get; set; }
@@ -75,6 +55,6 @@ public class AccountImageModel : PageModel
             .ToList();
 
 
-        return new JsonResult( new { listOfTransactions = Transactions } );
+        return new JsonResult(new { listOfTransactions = Transactions });
     }
 }

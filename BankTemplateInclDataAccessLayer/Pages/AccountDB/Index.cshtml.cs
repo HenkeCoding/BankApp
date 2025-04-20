@@ -1,14 +1,12 @@
-using DataAccessLayer.Models;
+using BankTemplateInclDataAccessLayer.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Data.SqlClient;
 using Services.Services;
 
 
 namespace BankTemplateInclDataAccessLayer.Pages.AccountDB;
 
 [Authorize(Roles = "Cashier, Admin")]
-
 public class IndexModel : PageModel
 {
     private readonly IAccountService _accountService;
@@ -17,28 +15,12 @@ public class IndexModel : PageModel
         _accountService = accountService;
     }
 
-
-
-    public class AccountViewModel
-    {
-        public int AccountId { get; set; }
-
-        public string Frequency { get; set; } = null!;
-
-        public DateOnly Created { get; set; }
-
-        public decimal Balance { get; set; }
-
-    }
-    public IEnumerable<AccountViewModel> Accounts { get; set; }
-
-
+    
+    public List<AccountViewModel> Accounts { get; set; }
 
     public int PageNo { get; set; }
     public int PageCount { get; set; }
     public int PageSize { get; set; } = 5;
-
-
 
 
     public void OnGet(

@@ -19,6 +19,8 @@
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
 
+    <!-- Box Icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
@@ -31,7 +33,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Index">
                 <div class="sidebar-brand-text mx-3">Bank App</div>
             </a>
 
@@ -40,7 +42,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.cshtml">
+                <a class="nav-link" href="Index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -118,7 +120,7 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
+
             <li class="nav-item">
                 <a class="nav-link" href="../AccountDB">
                     <i class="fas fa-file-invoice"></i>
@@ -126,7 +128,7 @@
                 </a>
             </li>
 
-            <!-- Nav Item - Tables -->
+
             <li class="nav-item">
                 <a class="nav-link" href="../CustomerDB">
                     <i class="fas fa-users"></i>
@@ -181,8 +183,6 @@
 @*     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script> *@
-
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
 
     @await RenderSectionAsync("Scripts", required: false)

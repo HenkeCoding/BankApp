@@ -5,7 +5,6 @@ namespace Services.Services;
 public class AccountService : IAccountService
 {
     private readonly BankAppDataContext _dbContext;
-
     public AccountService(BankAppDataContext dbContext)
     {
         _dbContext = dbContext;
@@ -17,7 +16,6 @@ public class AccountService : IAccountService
         )
     {
         IEnumerable<Account> result = _dbContext.Accounts;
-
         return result.GetPaged(pageNo, pageSize);
     }
 

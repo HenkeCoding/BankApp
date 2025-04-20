@@ -1,20 +1,23 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Identity.Client;
 using Services.Services;
 using System.ComponentModel.DataAnnotations;
 
 namespace BankTemplateInclDataAccessLayer.Pages.AccountDB;
 
 [BindProperties]
+[Authorize(Roles = "Cashier, Admin")]
 public class DepositModel : PageModel
 {
     private readonly IHandleAccountService _handleAccountService;
-
     public DepositModel(IHandleAccountService handleAccountService)
     {
         _handleAccountService = handleAccountService;
     }
 
+    public int AccountId { get; set; }
     [Range(100, 10000)]
     public decimal Amount { get; set; }
     public DateTime DepositDate { get; set; }
@@ -22,6 +25,7 @@ public class DepositModel : PageModel
 
     public void OnGet(int accountId)
     {
+        AccountId = accountId;
         DepositDate = DateTime.Now.AddHours(1);
     }
 

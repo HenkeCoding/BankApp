@@ -1,0 +1,21 @@
+﻿@model BankTemplateInclDataAccessLayer.ViewModels.CountryViewModel
+
+
+<div class="card"
+    <div class="container">
+        <img src="" alt="cookies" class="hero-image" />
+
+        <div class="card-body">
+
+            <div>Customers: @Model.Customers.Count()</div>
+
+            <div>Accounts: @Model.Accounts.Count()</div>
+
+            <div>Customers: @Model.BalanceSum</div>
+
+
+            <a href="#" class="btn btn-primary">View</a>
+
+        </div> <!-- end information -->
+    </div> <!-- end container -->
+</div>

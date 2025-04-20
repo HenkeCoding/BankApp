@@ -1,11 +1,5 @@
 ﻿@page
 @model BankTemplateInclDataAccessLayer.Pages.CustomerDB.IndexModel
-@{
-}
-
-
-
-
 
 <div class="card">
     <div class="card-header">
@@ -64,8 +58,44 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Customer ID</th>
-                    <th></th>
+                    <th>
+                        First name
+                        <a 
+                           asp-page="/CustomerDB/Index"
+                           asp-route-q="@Model.Q"
+                           asp-route-sortColumn="Givenname"
+                           asp-route-sortOrder="asc"
+                           asp-route-pageSize="@Model.PageSize">
+                            <i class='bx bx-chevron-up'></i>
+                        </a>
+                        <a 
+                           asp-page="/CustomerDB/Index"
+                           asp-route-q="@Model.Q"
+                           asp-route-sortColumn="Givenname"
+                           asp-route-sortOrder="desc"
+                           asp-route-pageSize="@Model.PageSize">
+                            <i class='bx bx-chevron-down'></i>
+                        </a>
+                    </th>
+                    <th> 
+                        Last name
+                        <a
+                           asp-page="/CustomerDB/Index"
+                           asp-route-q="@Model.Q"
+                           asp-route-sortColumn="Surname"
+                           asp-route-sortOrder="asc"
+                           asp-route-pageSize="@Model.PageSize">
+                            <i class='bx bx-chevron-up'></i>
+                        </a>
+                        <a
+                           asp-page="/CustomerDB/Index"
+                           asp-route-q="@Model.Q"
+                           asp-route-sortColumn="Surname"
+                           asp-route-sortOrder="desc"
+                           asp-route-pageSize="@Model.PageSize">
+                            <i class='bx bx-chevron-down'></i>
+                        </a>
+                    </th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -76,7 +106,8 @@
                 @foreach (var customer in Model.Customers)
                 {
                     <tr>
-                        <td>@customer.CustomerId</td>
+                        <td>@customer.Givenname</td>
+                        <td>@customer.Surname</td>
                         <td></td>
                         <td>
                             <a asp-page="CustomerImage" asp-route-customerId="@customer.CustomerId" class="btn btn-primary">View</a>

@@ -1,7 +1,5 @@
 ﻿@page
-@model BankTemplateInclDataAccessLayer.Pages.Person.CreateNewModel
-@{
-}
+@model BankTemplateInclDataAccessLayer.Pages.CustomerDB.CreateNewModel
 
 <div class="card">
     <div class="card-header">
@@ -100,3 +98,8 @@
         </form>
     </div>
 </div>
+
+@section Scripts
+                {
+    <partial name="Shared/_ValidationScriptsPartial" />
+}

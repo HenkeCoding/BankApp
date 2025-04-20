@@ -22,6 +22,19 @@ public class IndexModel : PageModel
     public class CustomerViewModel
     {
         public int CustomerId { get; set; }
+        public string Givenname { get; set; }
+        public string Surname { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string PostalCode { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public string PersonalNumber { get; set; }
+        public string AccountNumber { get; set; }
+        public string AccountType { get; set; }
+        public string AccountBalance { get; set; }
+        public string AccountStatus { get; set; }
+
     }
     public List<CustomerViewModel> Customers { get; set; }
 
@@ -63,6 +76,8 @@ public class IndexModel : PageModel
             .Select(c => new CustomerViewModel
             {
                 CustomerId = c.CustomerId,
+                Givenname = c.Givenname,
+                Surname = c.Surname
             })
             .ToList();
     }

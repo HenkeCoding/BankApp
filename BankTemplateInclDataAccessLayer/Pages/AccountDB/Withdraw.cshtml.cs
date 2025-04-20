@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.Services;
@@ -6,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace BankTemplateInclDataAccessLayer.Pages.AccountDB;
 
 [BindProperties]
+[Authorize(Roles = "Cashier, Admin")]
 public class WithdrawModel : PageModel
 {
     private readonly IHandleAccountService _handleAccountService;
