@@ -8,12 +8,16 @@
 
 
 
-
-
-
-
             <!-- Main Content -->
             <div id="content">
+
+
+    @foreach (var country in Model.Countries)
+    {
+        <partial name="_CountryBoxPartial" model="country" />
+    }
+
+
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">

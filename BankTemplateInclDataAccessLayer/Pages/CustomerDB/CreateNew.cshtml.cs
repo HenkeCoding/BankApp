@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using Services.Services;
 using Microsoft.AspNetCore.Authorization;
+using DataAccessLayer.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Services.Infrastructure.Validation;
 
 namespace BankTemplateInclDataAccessLayer.Pages.CustomerDB;
 
@@ -19,7 +22,14 @@ public class CreateNewModel : PageModel
 
     public int CustomerId { get; set; }
 
+
+
+
+    [ValidGenderAttribute]
     public string Gender { get; set; } = null!;
+    public List<SelectListItem> Genders { get; set; }
+
+
 
     [MaxLength(100)][Required] public string Givenname { get; set; }
 
@@ -49,6 +59,17 @@ public class CreateNewModel : PageModel
 
     public void OnGet()
     {
+        FillGenderList();
+
+    }
+    private void FillGenderList()
+    {
+        Genders = Enum.GetValues<Gender>()
+            .Select(g => new SelectListItem
+            {
+                Value = g.ToString(),
+                Text = g.ToString()
+            }).ToList();
     }
 
     public IActionResult OnPost()
@@ -73,6 +94,7 @@ public class CreateNewModel : PageModel
 
             return RedirectToPage("Index");
         }
+        FillGenderList();
         return Page();
     }
 

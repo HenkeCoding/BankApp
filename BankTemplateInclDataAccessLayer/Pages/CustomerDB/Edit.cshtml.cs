@@ -1,6 +1,9 @@
+using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Services.Infrastructure.Validation;
 using Services.Services;
 using System.ComponentModel.DataAnnotations;
 
@@ -19,7 +22,9 @@ public class EditModel : PageModel
 
     public int CustomerId { get; set; }
 
+    [ValidGenderAttribute]
     public string Gender { get; set; } = null!;
+    public List<SelectListItem> Genders { get; set; }
 
     [MaxLength(100)][Required] public string Givenname { get; set; }
 
@@ -65,6 +70,18 @@ public class EditModel : PageModel
         Telephonecountrycode = customerDb.Telephonecountrycode;
         Telephonenumber = customerDb.Telephonenumber;
         Emailaddress = customerDb.Emailaddress;
+
+        FillGenderList();
+    }
+
+    private void FillGenderList()
+    {
+        Genders = Enum.GetValues<Gender>()
+            .Select(g => new SelectListItem
+            {
+                Value = g.ToString(),
+                Text = g.ToString()
+            }).ToList();
     }
 
     public IActionResult OnPost(int customerId)
@@ -92,6 +109,7 @@ public class EditModel : PageModel
             return RedirectToPage("Index");
         }
 
+        FillGenderList();
         return Page();
     }
 

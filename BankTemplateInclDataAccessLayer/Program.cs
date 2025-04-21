@@ -25,6 +25,8 @@ builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IHandleAccountService, HandleAccountService>();
 builder.Services.AddTransient<ITransactionService, TransactionService>();
 builder.Services.AddTransient<IDispositionService, DispositionService>();
+builder.Services.AddTransient<ICardService, CardService>();
+builder.Services.AddTransient<ICountryService, CountryService>();
 
 
 builder.Services.AddDbContext<BankAppDataContext>(options =>

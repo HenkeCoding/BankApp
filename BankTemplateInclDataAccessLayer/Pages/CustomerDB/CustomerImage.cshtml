@@ -33,6 +33,15 @@
 
                 <tr>
                     <th>
+                        Gender: 
+                    </th>
+                    <td>
+                        @customer.Gender
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
                         Street address: 
                     </th>
                     <td>
@@ -150,9 +159,9 @@
 
                     <tr>
                         <td>@account.AccountId</td>
-                        <td>@disposition.Account.Balance</td>
-                        <td>@disposition.Account.Frequency</td>
-                        <td>@disposition.Account.Created</td>
+                        <td>@account.Balance</td>
+                        <td>@account.Frequency</td>
+                        <td>@account.Created</td>
                         <td>
                             <a class="btn btn-primary" asp-page="/AccountDB/AccountImage" asp-route-accountId="@disposition.Account.AccountId" asp-route-pageSize="10" >View</a>
                         </td>

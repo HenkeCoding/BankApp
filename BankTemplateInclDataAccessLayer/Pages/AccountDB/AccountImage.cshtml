@@ -1,6 +1,8 @@
 ﻿@page
 @model BankTemplateInclDataAccessLayer.Pages.AccountDB.AccountImageModel
+@{
 
+}
 
 <a asp-page="AccountImage" 
     asp-route-accountId="@Model.AccountId" 
@@ -27,14 +29,107 @@
 </a>
 
 
+
 <div class="card">
     <div class="card-header">
-        Card owner: 
+        Account owner: @Model.OwnerCustomer.Givenname @Model.OwnerCustomer.Surname
     </div>
     <div class="card-body">
-
+        <a asp-page="/CustomerDB/CustomerImage"
+           asp-route-customerId="@Model.OwnerCustomerId"
+           asp-route-pageSize="10">
+            <div class="btn btn-primary">
+                View account owner
+            </div>
+        </a>
     </div>
 </div>
+
+
+
+@if (Model.DisponentCustomerId != 0)
+{
+    <div class="card">
+        <div class="card-header">
+            Account disponent: @Model.DisponentCustomer.Givenname @Model.DisponentCustomer.Surname
+        </div>
+        <div class="card-body">
+            <a asp-page="/CustomerDB/CustomerImage"
+               asp-route-customerId="@Model.DisponentCustomerId"
+               asp-route-pageSize="10">
+                <div class="btn btn-primary">
+                    View account disponent
+                </div>
+            </a>
+        </div>
+    </div>
+}
+
+
+@if (Model.Cards.Any() == true)
+{
+    <div class="card">
+        <div class="card-header">
+            Cards
+        </div>
+        <div class="card-body">
+            <table class="table">
+
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Issued
+                    </th>
+                    <th>
+                        CC Type
+                    </th>
+                    <th>
+                        CC Number
+                    </th>
+                    <th>
+                        Cvv
+                    </th>
+                    <th>
+                        Expiration month
+                    </th>
+                <tr>
+
+                @foreach (var card in Model.Cards)
+                {
+                    <tr>
+                        <td>
+                            @card.CardId
+                        </td>
+                        <td>
+                            @card.Type
+                        </td>
+                        <td>
+                            @card.Issued
+                        </td>
+                        <td>
+                            @card.Cctype
+                        </td>
+                        <td>
+                            @card.Ccnumber
+                        </td>
+                        <td>
+                            @card.Cvv2
+                        </td>
+                        <td>
+                            @card.ExpM / @card.ExpY
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+}
 
 
 <div class="card">
@@ -51,7 +146,6 @@
                 <th>Balance</th>
                 <th>Symbol</th>
                 <th>Bank</th>
-                
             </tr>
 
 

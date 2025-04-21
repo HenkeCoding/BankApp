@@ -23,9 +23,12 @@
 
             <div class="form-group">
                 <label asp-for="Gender">Gender</label>
-                <input class="form-control" asp-for="Gender">
-                <span asp-validation-for="Gender" class="field-validation-error"></span>
+                <select class="form-control" asp-for="Gender" asp-items="@Model.Genders">
+                </select>
+                <span asp-validation-for="Gender"
+                      class="field-validation-error"></span>
             </div>
+
 
             <div class="form-group">
                 <label asp-for="Streetaddress">Street Address</label>
