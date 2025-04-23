@@ -26,6 +26,7 @@ namespace DataAccessLayer
             _dbContext.Database.Migrate();
             SeedRoles();
             SeedUsers();
+            SeedCountries();
         }
 
         // Här finns möjlighet att uppdatera dina användares loginuppgifter
@@ -40,6 +41,14 @@ namespace DataAccessLayer
         {
             AddRoleIfNotExisting("Admin");
             AddRoleIfNotExisting("Cashier");
+        }
+
+        private void SeedCountries()
+        {
+            AddCountryIfNotExists("Sweden", "SE");
+            AddCountryIfNotExists("Norway", "NO");
+            AddCountryIfNotExists("Denmark", "DK");
+            AddCountryIfNotExists("Finland", "FI");
         }
 
         private void AddRoleIfNotExisting(string roleName)
@@ -64,6 +73,18 @@ namespace DataAccessLayer
             };
             _userManager.CreateAsync(user, password).Wait();
             _userManager.AddToRolesAsync(user, roles).Wait();
+        }
+
+        private void AddCountryIfNotExists(string countryName, string countryCode)
+        {
+            if (_dbContext.Countries.Any(c => c.CountryName == countryName && c.CountryCode == countryCode)) return;
+            var country = new Country
+            {
+                CountryName = countryName,
+                CountryCode = countryCode
+            };
+            _dbContext.Countries.Add(country);
+            _dbContext.SaveChanges();
         }
     }
 }

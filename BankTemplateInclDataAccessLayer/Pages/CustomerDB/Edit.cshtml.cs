@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Services.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace BankApp.Pages.CustomerDB;
 
@@ -15,14 +16,21 @@ public class EditModel : PageModel
 {
     private readonly ICustomerService _customerService;
     private readonly IMapper _mapper;
+    private readonly ICountryService _countryService;
 
-    public EditModel(ICustomerService customerService, IMapper mapper)
+    public EditModel(ICustomerService customerService, IMapper mapper, ICountryService countryService)
     {
         _customerService = customerService;
         _mapper = mapper;
+        _countryService = countryService;
+
     }
 
     public int CustomerId { get; set; }
+
+    [Range(1, 4, ErrorMessage =
+"Please choose a valid country!")]
+    public int CountryId { get; set; }
     public CustomerViewModel UpdatedCustomerInfo { get; set; } = new CustomerViewModel();
 
     public List<SelectListItem> Genders { get; set; }
@@ -40,8 +48,11 @@ public class EditModel : PageModel
             RedirectToPage("Index");
         }
 
+        CountryId = _countryService.GetCountryByCode(customerDb.CountryCode).CountryId;
+
+
         FillGenderList();
-        FillCountriesList();
+        FillCountryList();
     }
 
     private void FillGenderList()
@@ -54,38 +65,49 @@ public class EditModel : PageModel
             }).ToList();
     }
 
-    private void FillCountriesList()
+    private void FillCountryList()
     {
-        Countries = Enum.GetValues<Country>()
-     .Select(g => new SelectListItem
-     {
-         Value = g.ToString(),
-         Text = g.ToString()
-     }).ToList();
+        Countries = new List<SelectListItem>();
+
+        Countries.Add(new SelectListItem
+        {
+            Text = "Choose",
+            Value = "0"
+        });
+
+        var countriesList = _countryService.GetCountries()
+        .Select(c => new SelectListItem
+        {
+            Text = c.CountryName,
+            Value = c.CountryId.ToString()
+        }).ToList();
+
+        foreach (var country in countriesList)
+        {
+            Countries.Add(country);
+        }
     }
 
     public IActionResult OnPost(int customerId)
     {
         if (ModelState.IsValid)
         {
+            var country = _countryService.GetCountryById(CountryId);
+
+            if (country == null)
+            {
+                ModelState.AddModelError("CountryId", "Please choose a valid country!");
+                FillGenderList();
+                FillCountryList();
+                return Page();
+            }
+
+            UpdatedCustomerInfo.CountryCode = country.CountryCode;
+            UpdatedCustomerInfo.Country = country.CountryName;
+
+
             var customerDb = _customerService.GetCustomer(customerId);
 
-            if (UpdatedCustomerInfo.Country == "Norway")
-            {
-                UpdatedCustomerInfo.CountryCode = "NO";
-            }
-            if (UpdatedCustomerInfo.Country == "Sweden")
-            {
-                UpdatedCustomerInfo.CountryCode = "SE";
-            }
-            if (UpdatedCustomerInfo.Country == "Finland")
-            {
-                UpdatedCustomerInfo.CountryCode = "FI";
-            }
-            if (UpdatedCustomerInfo.Country == "Denmark")
-            {
-                UpdatedCustomerInfo.CountryCode = "DK";
-            }
 
             _mapper.Map(UpdatedCustomerInfo, customerDb);
 
@@ -94,7 +116,7 @@ public class EditModel : PageModel
         }
 
         FillGenderList();
-        FillCountriesList();
+        FillCountryList();
         return Page();
     }
 

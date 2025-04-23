@@ -92,6 +92,7 @@ public class CustomerService : ICustomerService
             Emailaddress = emailaddress
         };
 
+        _dbContext.Customers.Add(customer);
 
         Update(customer);
     }

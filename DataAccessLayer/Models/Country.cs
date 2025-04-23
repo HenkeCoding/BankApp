@@ -1,10 +1,9 @@
 ﻿namespace DataAccessLayer.Models;
 
-public enum Country
+public partial class Country
 {
-    Choose = 0,
-    Norway = 1,
-    Sweden = 2,
-    Denmark = 3,
-    Finland = 4,
+    public int CountryId { get; set; }
+    public string CountryName { get; set; } = null!;
+    public string CountryCode { get; set; } = null!;
+
 }

@@ -18,7 +18,7 @@ namespace BankApp.ViewModels
 
         [StringLength(10)] public string Zipcode { get; set; }
 
-        public string Country { get; set; }
+        public string? Country { get; set; }
 
         [StringLength(2)] public string? CountryCode { get; set; }
 

@@ -36,5 +36,22 @@ namespace Services.Services
                 .Where(a => a.Customer.CountryCode == countryCode)
                 .Sum(a => a.Account.Balance);
         }
+
+        public IEnumerable<Country> GetCountries()
+        {
+            return _dbContext.Countries.ToList();
+        }
+
+        public Country GetCountryById(int countryId)
+        {
+            return _dbContext.Countries
+                .FirstOrDefault(c => c.CountryId == countryId);
+        }
+
+        public Country GetCountryByCode(string countryCode)
+        {
+            return _dbContext.Countries
+    .FirstOrDefault(c => c.CountryCode == countryCode);
+        }
     }
 }
