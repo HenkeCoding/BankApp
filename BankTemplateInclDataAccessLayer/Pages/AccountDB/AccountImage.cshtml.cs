@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.Services;
-using BankTemplateInclDataAccessLayer.ViewModels;
+using BankApp.ViewModels;
 
-namespace BankTemplateInclDataAccessLayer.Pages.AccountDB;
+namespace BankApp.Pages.AccountDB;
 
 [Authorize(Roles = "Cashier, Admin")]
 public class AccountImageModel : PageModel

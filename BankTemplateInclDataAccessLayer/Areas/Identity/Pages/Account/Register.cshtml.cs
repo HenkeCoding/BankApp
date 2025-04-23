@@ -15,7 +15,7 @@ using System.Text.Encodings.Web;
 
 
 
-namespace BankTemplateInclDataAccessLayer.Areas.Identity.Pages.Account;
+namespace BankApp.Areas.Identity.Pages.Account;
 
 
 [Authorize(Roles = "Admin")]

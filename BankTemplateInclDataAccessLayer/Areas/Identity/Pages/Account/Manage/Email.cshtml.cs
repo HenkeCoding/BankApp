@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace BankTemplateInclDataAccessLayer.Areas.Identity.Pages.Account.Manage
+namespace BankApp.Areas.Identity.Pages.Account.Manage
 {
     public class EmailModel : PageModel
     {

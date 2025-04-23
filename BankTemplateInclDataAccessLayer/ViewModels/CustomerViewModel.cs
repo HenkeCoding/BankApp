@@ -1,20 +1,35 @@
-﻿namespace BankTemplateInclDataAccessLayer.ViewModels
+﻿using Services.Infrastructure.Validation;
+using System.ComponentModel.DataAnnotations;
+
+namespace BankApp.ViewModels
 {
     public class CustomerViewModel
     {
-        public string Givenname { get; set; }
-        public string Surname { get; set; }
+        [ValidGenderAttribute]
         public string Gender { get; set; }
-        public string Streetaddress { get; set; }
-        public string City { get; set; }
-        public string Zipcode { get; set; }
+
+        [MaxLength(100)][Required] public string Givenname { get; set; }
+
+        [MaxLength(100)][Required] public string Surname { get; set; }
+
+        [StringLength(100)] public string Streetaddress { get; set; }
+
+        [StringLength(50)][Required] public string City { get; set; }
+
+        [StringLength(10)] public string Zipcode { get; set; }
+
         public string Country { get; set; }
-        public string CountryCode { get; set; }
+
+        [StringLength(2)] public string? CountryCode { get; set; }
+
         public DateOnly? Birthday { get; set; }
+
         public string? NationalId { get; set; }
+
         public string? Telephonecountrycode { get; set; }
+
         public string? Telephonenumber { get; set; }
-        public string? Emailaddress { get; set; }
+        [StringLength(150)][EmailAddress] public string? Emailaddress { get; set; }
 
     }
 }

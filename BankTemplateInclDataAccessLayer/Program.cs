@@ -1,8 +1,10 @@
+using AutoMapper;
 using DataAccessLayer;
 using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Services.Services;
+using System.Reflection;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +29,10 @@ builder.Services.AddTransient<ITransactionService, TransactionService>();
 builder.Services.AddTransient<IDispositionService, DispositionService>();
 builder.Services.AddTransient<ICardService, CardService>();
 builder.Services.AddTransient<ICountryService, CountryService>();
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+builder.Services.AddResponseCaching();
 
 
 builder.Services.AddDbContext<BankAppDataContext>(options =>
@@ -59,7 +65,10 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+app.UseResponseCaching();
 app.MapRazorPages()
    .WithStaticAssets();
+
+
 
 app.Run();

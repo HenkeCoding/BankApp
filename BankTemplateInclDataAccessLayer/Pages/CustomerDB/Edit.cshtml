@@ -1,5 +1,5 @@
 ﻿@page
-@model BankTemplateInclDataAccessLayer.Pages.CustomerDB.EditModel
+@model BankApp.Pages.CustomerDB.EditModel
 
 <div class="card">
     <div class="card-header">
@@ -10,90 +10,84 @@
 
 
             <div class="form-group">
-                <label asp-for="Givenname">First name</label>
-                <input class="form-control" asp-for="Givenname">
-                <span asp-validation-for="Givenname" class="field-validation-error"></span>
+                <label asp-for="UpdatedCustomerInfo.Givenname">First name</label>
+                <input class="form-control" asp-for="UpdatedCustomerInfo.Givenname">
+                <span asp-validation-for="UpdatedCustomerInfo.Givenname" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Surname">Last name</label>
-                <input class="form-control" asp-for="Surname">
-                <span asp-validation-for="Surname" class="field-validation-error"></span>
+                <label asp-for="UpdatedCustomerInfo.Surname">Last name</label>
+                <input class="form-control" asp-for="UpdatedCustomerInfo.Surname">
+                <span asp-validation-for="UpdatedCustomerInfo.Surname" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Gender">Gender</label>
-                <select class="form-control" asp-for="Gender" asp-items="@Model.Genders">
+                <label asp-for="UpdatedCustomerInfo.Gender">Gender</label>
+                <select class="form-control" asp-for="UpdatedCustomerInfo.Gender" asp-items="@Model.Genders">
                 </select>
-                <span asp-validation-for="Gender"
+                <span asp-validation-for="UpdatedCustomerInfo.Gender"
                       class="field-validation-error"></span>
             </div>
 
 
             <div class="form-group">
-                <label asp-for="Streetaddress">Street Address</label>
-                <input class="form-control" asp-for="Streetaddress">
-                <span asp-validation-for="Streetaddress" class="field-validation-error"></span>
+                <label asp-for="UpdatedCustomerInfo.Streetaddress">Street Address</label>
+                <input class="form-control" asp-for="UpdatedCustomerInfo.Streetaddress">
+                <span asp-validation-for="UpdatedCustomerInfo.Streetaddress" class="field-validation-error"></span>
             </div>
 
 
 
             <div class="form-group">
-                <label asp-for="City">City</label>
-                <input class="form-control" asp-for="City">
-                <span asp-validation-for="City" class="field-validation-error"></span>
+                <label asp-for="UpdatedCustomerInfo.City">City</label>
+                <input class="form-control" asp-for="UpdatedCustomerInfo.City">
+                <span asp-validation-for="UpdatedCustomerInfo.City" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Zipcode">Zip code</label>
-                <input class="form-control" asp-for="Zipcode">
-                <span asp-validation-for="Zipcode" class="field-validation-error"></span>
+                <label asp-for="UpdatedCustomerInfo.Zipcode">Zip code</label>
+                <input class="form-control" asp-for="UpdatedCustomerInfo.Zipcode">
+                <span asp-validation-for="UpdatedCustomerInfo.Zipcode" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Country">Country</label>
-                <input class="form-control" asp-for="Country">
-                <span asp-validation-for="Country" class="field-validation-error"></span>
-            </div>
-
-
-
-            <div class="form-group">
-                <label asp-for="CountryCode">Country Code</label>
-                <input class="form-control" asp-for="CountryCode">
-                <span asp-validation-for="CountryCode" class="field-validation-error"></span>
+                <label asp-for="UpdatedCustomerInfo.Country">Country</label>
+                <select class="form-control" asp-for="UpdatedCustomerInfo.Country" asp-items="@Model.Countries">
+                </select>
+                <span asp-validation-for="UpdatedCustomerInfo.Country"
+                      class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Birthday">Birthday</label>
-                <input class="form-control" asp-for="Birthday">
-                <span asp-validation-for="Birthday" class="field-validation-error"></span>
+                <label asp-for="UpdatedCustomerInfo.Birthday">Birthday</label>
+                <input class="form-control" asp-for="UpdatedCustomerInfo.Birthday">
+                <span asp-validation-for="UpdatedCustomerInfo.Birthday" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="NationalId">National Id</label>
-                <input class="form-control" asp-for="NationalId">
-                <span asp-validation-for="NationalId" class="field-validation-error"></span>
+                <label asp-for="UpdatedCustomerInfo.NationalId">National Id</label>
+                <input class="form-control" asp-for="UpdatedCustomerInfo.NationalId">
+                <span asp-validation-for="UpdatedCustomerInfo.NationalId" class="field-validation-error"></span>
             </div>
 
 
 
             <div class="form-group">
-                <label asp-for="Telephonecountrycode">Telephone country code</label>
-                <input class="form-control" asp-for="Telephonecountrycode">
-                <span asp-validation-for="Telephonecountrycode" class="field-validation-error"></span>
+                <label asp-for="UpdatedCustomerInfo.Telephonecountrycode">Telephone country code</label>
+                <input class="form-control" asp-for="UpdatedCustomerInfo.Telephonecountrycode">
+                <span asp-validation-for="UpdatedCustomerInfo.Telephonecountrycode" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Telephonenumber">Telephone number</label>
-                <input class="form-control" asp-for="Telephonenumber">
-                <span asp-validation-for="Telephonenumber" class="field-validation-error"></span>
+                <label asp-for="UpdatedCustomerInfo.Telephonenumber">Telephone number</label>
+                <input class="form-control" asp-for="UpdatedCustomerInfo.Telephonenumber">
+                <span asp-validation-for="UpdatedCustomerInfo.Telephonenumber" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Emailaddress">Email address</label>
-                <input class="form-control" asp-for="Emailaddress">
-                <span asp-validation-for="Emailaddress" class="field-validation-error"></span>
+                <label asp-for="UpdatedCustomerInfo.Emailaddress">Email address</label>
+                <input class="form-control" asp-for="UpdatedCustomerInfo.Emailaddress">
+                <span asp-validation-for="UpdatedCustomerInfo.Emailaddress" class="field-validation-error"></span>
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>

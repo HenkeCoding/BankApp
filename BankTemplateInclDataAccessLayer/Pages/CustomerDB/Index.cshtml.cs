@@ -6,7 +6,7 @@ using Microsoft.Data.SqlClient;
 using Services.Infrastructure.Paging;
 using Services.Services;
 
-namespace BankTemplateInclDataAccessLayer.Pages.CustomerDB;
+namespace BankApp.Pages.CustomerDB;
 
 [Authorize(Roles = "Cashier, Admin")]
 

@@ -1,77 +1,47 @@
+using AutoMapper;
+using BankApp.ViewModels;
 using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Services.Infrastructure.Validation;
 using Services.Services;
-using System.ComponentModel.DataAnnotations;
 
-namespace BankTemplateInclDataAccessLayer.Pages.CustomerDB;
+namespace BankApp.Pages.CustomerDB;
 
 [BindProperties]
 [Authorize(Roles = "Cashier, Admin")]
 public class EditModel : PageModel
 {
     private readonly ICustomerService _customerService;
+    private readonly IMapper _mapper;
 
-    public EditModel(ICustomerService customerService)
+    public EditModel(ICustomerService customerService, IMapper mapper)
     {
         _customerService = customerService;
+        _mapper = mapper;
     }
 
     public int CustomerId { get; set; }
+    public CustomerViewModel UpdatedCustomerInfo { get; set; } = new CustomerViewModel();
 
-    [ValidGenderAttribute]
-    public string Gender { get; set; } = null!;
     public List<SelectListItem> Genders { get; set; }
 
-    [MaxLength(100)][Required] public string Givenname { get; set; }
-
-    [MaxLength(100)][Required] public string Surname { get; set; }
-
-    [StringLength(100)] public string Streetaddress { get; set; }
-
-    [StringLength(50)][Required] public string City { get; set; }
-
-    [StringLength(10)] public string Zipcode { get; set; }
-
-    public string Country { get; set; }
-
-    [StringLength(2)] public string CountryCode { get; set; }
-
-    public DateOnly? Birthday { get; set; }
-
-    public string? NationalId { get; set; }
-
-    public string? Telephonecountrycode { get; set; }
-
-    public string? Telephonenumber { get; set; }
-
-    [StringLength(150)][EmailAddress] public string? Emailaddress { get; set; }
-
+    public List<SelectListItem> Countries { get; set; }
 
     public void OnGet(int customerId)
     {
         var customerDb = _customerService.GetCustomer(customerId);
-        Gender = customerDb.Gender;
-        Givenname = customerDb.Givenname;
-        Surname = customerDb.Surname;
-        Streetaddress = customerDb.Streetaddress;
 
-        City = customerDb.City;
-        Zipcode = customerDb.Zipcode;
-        Country = customerDb.Country;
+        _mapper.Map(customerDb, UpdatedCustomerInfo);
 
-        CountryCode = customerDb.CountryCode;
-        Birthday = customerDb.Birthday;
-        NationalId = customerDb.NationalId;
-
-        Telephonecountrycode = customerDb.Telephonecountrycode;
-        Telephonenumber = customerDb.Telephonenumber;
-        Emailaddress = customerDb.Emailaddress;
+        if (customerDb == null)
+        {
+            RedirectToPage("Index");
+        }
 
         FillGenderList();
+        FillCountriesList();
     }
 
     private void FillGenderList()
@@ -84,32 +54,47 @@ public class EditModel : PageModel
             }).ToList();
     }
 
+    private void FillCountriesList()
+    {
+        Countries = Enum.GetValues<Country>()
+     .Select(g => new SelectListItem
+     {
+         Value = g.ToString(),
+         Text = g.ToString()
+     }).ToList();
+    }
+
     public IActionResult OnPost(int customerId)
     {
         if (ModelState.IsValid)
         {
             var customerDb = _customerService.GetCustomer(customerId);
-            customerDb.Givenname = Givenname;
-            customerDb.Surname = Surname;
-            customerDb.Streetaddress = Streetaddress;
 
-            customerDb.City = City;
-            customerDb.Zipcode = Zipcode;
-            customerDb.Country = Country;
+            if (UpdatedCustomerInfo.Country == "Norway")
+            {
+                UpdatedCustomerInfo.CountryCode = "NO";
+            }
+            if (UpdatedCustomerInfo.Country == "Sweden")
+            {
+                UpdatedCustomerInfo.CountryCode = "SE";
+            }
+            if (UpdatedCustomerInfo.Country == "Finland")
+            {
+                UpdatedCustomerInfo.CountryCode = "FI";
+            }
+            if (UpdatedCustomerInfo.Country == "Denmark")
+            {
+                UpdatedCustomerInfo.CountryCode = "DK";
+            }
 
-            customerDb.CountryCode = CountryCode;
-            customerDb.Birthday = Birthday;
-            customerDb.NationalId = NationalId;
-
-            customerDb.Telephonecountrycode = Telephonecountrycode;
-            customerDb.Telephonenumber = Telephonenumber;
-            customerDb.Emailaddress = Emailaddress;
+            _mapper.Map(UpdatedCustomerInfo, customerDb);
 
             _customerService.Update(customerDb);
             return RedirectToPage("Index");
         }
 
         FillGenderList();
+        FillCountriesList();
         return Page();
     }
 

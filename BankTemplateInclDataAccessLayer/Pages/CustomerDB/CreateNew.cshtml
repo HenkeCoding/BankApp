@@ -1,5 +1,6 @@
 ﻿@page
-@model BankTemplateInclDataAccessLayer.Pages.CustomerDB.CreateNewModel
+@model BankApp.Pages.CustomerDB.CreateNewModel
+
 
 <div class="card">
     <div class="card-header">
@@ -10,91 +11,86 @@
 
 
             <div class="form-group">
-                <label asp-for="Givenname">First name</label>
-                <input class="form-control" asp-for="Givenname">
-                <span asp-validation-for="Givenname" class="field-validation-error"></span>
+                <label asp-for="CustomerToCreate.Givenname">First name</label>
+                <input class="form-control" asp-for="CustomerToCreate.Givenname">
+                <span asp-validation-for="CustomerToCreate.Givenname" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Surname">Last name</label>
-                <input class="form-control" asp-for="Surname">
-                <span asp-validation-for="Surname" class="field-validation-error"></span>
+                <label asp-for="CustomerToCreate.Surname">Last name</label>
+                <input class="form-control" asp-for="CustomerToCreate.Surname">
+                <span asp-validation-for="CustomerToCreate.Surname" class="field-validation-error"></span>
             </div>
 
 
             <div class="form-group">
-                <label asp-for="Gender">Gender</label>
-                <select class="form-control" asp-for="Gender" asp-items="@Model.Genders">
+                <label asp-for="CustomerToCreate.Gender">Gender</label>
+                <select class="form-control" asp-for="CustomerToCreate.Gender" asp-items="@Model.Genders">
                 </select>
-                <span asp-validation-for="Gender"
+                <span asp-validation-for="CustomerToCreate.Gender"
                       class="field-validation-error"></span>
             </div>
 
 
             <div class="form-group">
-                <label asp-for="Streetaddress">Street Address</label>
-                <input class="form-control" asp-for="Streetaddress">
-                <span asp-validation-for="Streetaddress" class="field-validation-error"></span>
+                <label asp-for="CustomerToCreate.Streetaddress">Street Address</label>
+                <input class="form-control" asp-for="CustomerToCreate.Streetaddress">
+                <span asp-validation-for="CustomerToCreate.Streetaddress" class="field-validation-error"></span>
             </div>
 
 
 
             <div class="form-group">
-                <label asp-for="City">City</label>
-                <input class="form-control" asp-for="City">
-                <span asp-validation-for="City" class="field-validation-error"></span>
+                <label asp-for="CustomerToCreate.City">City</label>
+                <input class="form-control" asp-for="CustomerToCreate.City">
+                <span asp-validation-for="CustomerToCreate.City" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Zipcode">Zip code</label>
-                <input class="form-control" asp-for="Zipcode">
-                <span asp-validation-for="Zipcode" class="field-validation-error"></span>
+                <label asp-for="CustomerToCreate.Zipcode">Zip code</label>
+                <input class="form-control" asp-for="CustomerToCreate.Zipcode">
+                <span asp-validation-for="CustomerToCreate.Zipcode" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Country">Country</label>
-                <input class="form-control" asp-for="Country">
-                <span asp-validation-for="Country" class="field-validation-error"></span>
+                <label asp-for="CustomerToCreate.Country">Country</label>
+                <select class="form-control" asp-for="CustomerToCreate.Country" asp-items="@Model.Countries">
+                </select>
+                <span asp-validation-for="CustomerToCreate.Country"
+                      class="field-validation-error"></span>
             </div>
 
 
-
             <div class="form-group">
-                <label asp-for="CountryCode">Country Code</label>
-                <input class="form-control" asp-for="CountryCode">
-                <span asp-validation-for="CountryCode" class="field-validation-error"></span>
+                <label asp-for="CustomerToCreate.Birthday">Birthday</label>
+                <input class="form-control" asp-for="CustomerToCreate.Birthday">
+                <span asp-validation-for="CustomerToCreate.Birthday" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Birthday">Birthday</label>
-                <input class="form-control" asp-for="Birthday">
-                <span asp-validation-for="Birthday" class="field-validation-error"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="NationalId">National Id</label>
-                <input class="form-control" asp-for="NationalId">
-                <span asp-validation-for="NationalId" class="field-validation-error"></span>
+                <label asp-for="CustomerToCreate.NationalId">National Id</label>
+                <input class="form-control" asp-for="CustomerToCreate.NationalId">
+                <span asp-validation-for="CustomerToCreate.NationalId" class="field-validation-error"></span>
             </div>
 
 
 
             <div class="form-group">
-                <label asp-for="Telephonecountrycode">Telephone country code</label>
-                <input class="form-control" asp-for="Telephonecountrycode">
-                <span asp-validation-for="Telephonecountrycode" class="field-validation-error"></span>
+                <label asp-for="CustomerToCreate.Telephonecountrycode">Telephone country code</label>
+                <input class="form-control" asp-for="CustomerToCreate.Telephonecountrycode">
+                <span asp-validation-for="CustomerToCreate.Telephonecountrycode" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Telephonenumber">Telephone number</label>
-                <input class="form-control" asp-for="Telephonenumber">
-                <span asp-validation-for="Telephonenumber" class="field-validation-error"></span>
+                <label asp-for="CustomerToCreate.Telephonenumber">Telephone number</label>
+                <input class="form-control" asp-for="CustomerToCreate.Telephonenumber">
+                <span asp-validation-for="CustomerToCreate.Telephonenumber" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Emailaddress">Email address</label>
-                <input class="form-control" asp-for="Emailaddress">
-                <span asp-validation-for="Emailaddress" class="field-validation-error"></span>
+                <label asp-for="CustomerToCreate.Emailaddress">Email address</label>
+                <input class="form-control" asp-for="CustomerToCreate.Emailaddress">
+                <span asp-validation-for="CustomerToCreate.Emailaddress" class="field-validation-error"></span>
             </div>
 
 

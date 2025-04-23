@@ -1,8 +1,8 @@
-using BankTemplateInclDataAccessLayer.ViewModels;
+using BankApp.ViewModels;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.Services;
 
-namespace BankTemplateInclDataAccessLayer.Pages;
+namespace BankApp.Pages;
 
 public class IndexModel : PageModel
 {

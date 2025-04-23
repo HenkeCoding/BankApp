@@ -5,7 +5,7 @@ using Microsoft.Identity.Client;
 using Services.Services;
 using System.ComponentModel.DataAnnotations;
 
-namespace BankTemplateInclDataAccessLayer.Pages.AccountDB;
+namespace BankApp.Pages.AccountDB;
 
 [BindProperties]
 [Authorize(Roles = "Cashier, Admin")]

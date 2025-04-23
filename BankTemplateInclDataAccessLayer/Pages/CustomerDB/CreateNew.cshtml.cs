@@ -1,67 +1,40 @@
+using AutoMapper;
+using BankApp.ViewModels;
+using DataAccessLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
-using Services.Services;
-using Microsoft.AspNetCore.Authorization;
-using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Services.Infrastructure.Validation;
+using Services.Services;
 
-namespace BankTemplateInclDataAccessLayer.Pages.CustomerDB;
+namespace BankApp.Pages.CustomerDB;
 
 [BindProperties]
 [Authorize(Roles = "Cashier, Admin")]
 public class CreateNewModel : PageModel
 {
     private readonly ICustomerService _customerService;
-    public CreateNewModel(ICustomerService customerService)
+    private readonly IMapper _mapper;
+    public CreateNewModel(ICustomerService customerService, IMapper mapper)
     {
         _customerService = customerService;
+        _mapper = mapper;
     }
 
 
     public int CustomerId { get; set; }
-
-
-
-
-    [ValidGenderAttribute]
-    public string Gender { get; set; } = null!;
+    public CustomerViewModel CustomerToCreate { get; set; }
     public List<SelectListItem> Genders { get; set; }
-
-
-
-    [MaxLength(100)][Required] public string Givenname { get; set; }
-
-    [MaxLength(100)][Required] public string Surname { get; set; }
-
-    [StringLength(100)] public string Streetaddress { get; set; }
-
-    [StringLength(50)][Required] public string City { get; set; }
-
-    [StringLength(10)] public string Zipcode { get; set; }
-
-    public string Country { get; set; }
-
-    [StringLength(2)] public string CountryCode { get; set; }
-
-    public DateOnly? Birthday { get; set; }
-
-    public string? NationalId { get; set; }
-
-    public string? Telephonecountrycode { get; set; }
-
-    public string? Telephonenumber { get; set; }
-
-    [StringLength(150)][EmailAddress] public string? Emailaddress { get; set; }
+    public List<SelectListItem> Countries { get; set; }
 
 
 
     public void OnGet()
     {
         FillGenderList();
-
+        FillCountriesList();
     }
+
     private void FillGenderList()
     {
         Genders = Enum.GetValues<Gender>()
@@ -72,29 +45,57 @@ public class CreateNewModel : PageModel
             }).ToList();
     }
 
+    private void FillCountriesList()
+    {
+        Countries = Enum.GetValues<Country>()
+     .Select(g => new SelectListItem
+     {
+         Value = g.ToString(),
+         Text = g.ToString()
+     }).ToList();
+    }
+
     public IActionResult OnPost()
     {
         if (ModelState.IsValid)
         {
+            if (CustomerToCreate.Country == "Norway")
+            {
+                CustomerToCreate.CountryCode = "NO";
+            }
+            if (CustomerToCreate.Country == "Sweden")
+            {
+                CustomerToCreate.CountryCode = "SE";
+            }
+            if (CustomerToCreate.Country == "Finland")
+            {
+                CustomerToCreate.CountryCode = "FI";
+            }
+            if (CustomerToCreate.Country == "Denmark")
+            {
+                CustomerToCreate.CountryCode = "DK";
+            }
+
             _customerService.CreateCustomer(
-                Gender,
-                Givenname,
-                Surname,
-                Streetaddress,
-                City,
-                Zipcode,
-                Country,
-                CountryCode,
-                Birthday,
-                NationalId,
-                Telephonecountrycode,
-                Telephonenumber,
-                Emailaddress
+                CustomerToCreate.Gender,
+                CustomerToCreate.Givenname,
+                CustomerToCreate.Surname,
+                CustomerToCreate.Streetaddress,
+                CustomerToCreate.City,
+                CustomerToCreate.Zipcode,
+                CustomerToCreate.Country,
+                CustomerToCreate.CountryCode,
+                CustomerToCreate.Birthday,
+                CustomerToCreate.NationalId,
+                CustomerToCreate.Telephonecountrycode,
+                CustomerToCreate.Telephonenumber,
+                CustomerToCreate.Emailaddress
                 );
 
             return RedirectToPage("Index");
         }
         FillGenderList();
+        FillCountriesList();
         return Page();
     }
 

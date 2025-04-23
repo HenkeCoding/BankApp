@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankTemplateInclDataAccessLayer", "BankTemplateInclDataAccessLayer\BankTemplateInclDataAccessLayer.csproj", "{5927EC0E-CDAC-41DF-96B6-B0FE699E4B8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankApp", "BankTemplateInclDataAccessLayer\BankApp.csproj", "{5927EC0E-CDAC-41DF-96B6-B0FE699E4B8F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{EA0A1DA7-4969-4EE4-8CE9-87EA8E1C94D4}"
 EndProject

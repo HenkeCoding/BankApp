@@ -1,9 +1,8 @@
-﻿namespace DataAccessLayer.Models
+﻿namespace DataAccessLayer.Models;
+
+public enum Gender
 {
-    public enum Gender
-    {
-        Choose = 0,
-        Male = 1,
-        Female = 2
-    }
+    Choose = 0,
+    Male = 1,
+    Female = 2
 }

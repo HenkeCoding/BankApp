@@ -1,4 +1,4 @@
-﻿namespace BankTemplateInclDataAccessLayer.ViewModels
+﻿namespace BankApp.ViewModels
 {
     public class AccountViewModel
     {

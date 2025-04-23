@@ -1,23 +1,30 @@
-using BankTemplateInclDataAccessLayer.ViewModels;
+using BankApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Identity.Client;
 using Services.Services;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 
-namespace BankTemplateInclDataAccessLayer.Pages.CustomerDB;
+namespace BankApp.Pages.CustomerDB;
 
+[ResponseCache(Duration = 30, VaryByQueryKeys = ["customerId"])]
 [Authorize(Roles = "Cashier, Admin")]
 public class CustomerImageModel : PageModel
 {
     private readonly ICustomerService _customerService;
     private readonly IDispositionService _dispositionService;
+    private readonly IMapper _mapper;
 
-    public CustomerImageModel(ICustomerService customerService, IDispositionService dispositionService)
+
+    public CustomerImageModel(ICustomerService customerService, IDispositionService dispositionService, IMapper mapper)
     {
         _customerService = customerService;
         _dispositionService = dispositionService;
+        _mapper = mapper;
+
     }
-    public CustomerViewModel Customer { get; set; }
+    public CustomerViewModel CustomerToView { get; set; }
 
     public List<DispositionViewModel> Dispositions { get; set; }
 
@@ -29,22 +36,10 @@ public class CustomerImageModel : PageModel
     {
         var CustomerDb = _customerService.GetCustomer(customerId);
 
-        Customer = new CustomerViewModel
-        {
-            Givenname = CustomerDb.Givenname,
-            Surname = CustomerDb.Surname,
-            Gender = CustomerDb.Gender,
-            Streetaddress = CustomerDb.Streetaddress,
-            City = CustomerDb.City,
-            Zipcode = CustomerDb.Zipcode,
-            Country = CustomerDb.Country,
-            CountryCode = CustomerDb.CountryCode,
-            Birthday = CustomerDb.Birthday,
-            NationalId = CustomerDb.NationalId,
-            Telephonecountrycode = CustomerDb.Telephonecountrycode,
-            Telephonenumber = CustomerDb.Telephonenumber,
-            Emailaddress = CustomerDb.Emailaddress
-        };
+        CustomerToView = new CustomerViewModel();
+
+        _mapper.Map(CustomerDb, CustomerToView);
+
 
 
         Dispositions = _dispositionService.GetDispositionsByCustomerId(customerId)

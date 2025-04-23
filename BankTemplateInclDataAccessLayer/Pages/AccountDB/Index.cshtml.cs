@@ -1,10 +1,10 @@
-using BankTemplateInclDataAccessLayer.ViewModels;
+using BankApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.Services;
 
 
-namespace BankTemplateInclDataAccessLayer.Pages.AccountDB;
+namespace BankApp.Pages.AccountDB;
 
 [Authorize(Roles = "Cashier, Admin")]
 public class IndexModel : PageModel
