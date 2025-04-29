@@ -1,90 +1,84 @@
 ﻿using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 
 
-namespace DataAccessLayer
+namespace DataAccessLayer;
+
+public class DataInitializer
 {
-    public class DataInitializer
+    private readonly BankAppDataContext _dbContext;
+    private readonly UserManager<IdentityUser> _userManager;
+
+    public DataInitializer(BankAppDataContext dbContext, UserManager<IdentityUser> userManager)
     {
-        private readonly BankAppDataContext _dbContext;
-        private readonly UserManager<IdentityUser> _userManager;
+        _dbContext = dbContext;
+        _userManager = userManager;
+    }
+    public void SeedData()
+    {
+        _dbContext.Database.Migrate();
+        SeedRoles();
+        SeedUsers();
+        SeedCountries();
+    }
 
-        public DataInitializer(BankAppDataContext dbContext, UserManager<IdentityUser> userManager)
-        {
-            _dbContext = dbContext;
-            _userManager = userManager;
-        }
-        public void SeedData()
-        {
-            _dbContext.Database.Migrate();
-            SeedRoles();
-            SeedUsers();
-            SeedCountries();
-        }
+    // Här finns möjlighet att uppdatera dina användares loginuppgifter
+    private void SeedUsers()
+    {
+        AddUserIfNotExists("richard.chalk@systementor.se", "Hejsan123#", new string[] { "Admin" });
+        AddUserIfNotExists("richard.chalk@customer.systementor.se", "Hejsan123#", new string[] { "Cashier" });
+    }
 
-        // Här finns möjlighet att uppdatera dina användares loginuppgifter
-        private void SeedUsers()
-        {
-            AddUserIfNotExists("richard.chalk@systementor.se", "Hejsan123#", new string[] { "Admin" });
-            AddUserIfNotExists("richard.chalk@customer.systementor.se", "Hejsan123#", new string[] { "Cashier" });
-        }
+    // Här finns möjlighet att uppdatera dina användares roller
+    private void SeedRoles()
+    {
+        AddRoleIfNotExisting("Admin");
+        AddRoleIfNotExisting("Cashier");
+    }
 
-        // Här finns möjlighet att uppdatera dina användares roller
-        private void SeedRoles()
-        {
-            AddRoleIfNotExisting("Admin");
-            AddRoleIfNotExisting("Cashier");
-        }
+    private void SeedCountries()
+    {
+        AddCountryIfNotExists("Sweden", "SE");
+        AddCountryIfNotExists("Norway", "NO");
+        AddCountryIfNotExists("Denmark", "DK");
+        AddCountryIfNotExists("Finland", "FI");
+    }
 
-        private void SeedCountries()
+    private void AddRoleIfNotExisting(string roleName)
+    {
+        var role = _dbContext.Roles.FirstOrDefault(r => r.Name == roleName);
+        if (role == null)
         {
-            AddCountryIfNotExists("Sweden", "SE");
-            AddCountryIfNotExists("Norway", "NO");
-            AddCountryIfNotExists("Denmark", "DK");
-            AddCountryIfNotExists("Finland", "FI");
-        }
-
-        private void AddRoleIfNotExisting(string roleName)
-        {
-            var role = _dbContext.Roles.FirstOrDefault(r => r.Name == roleName);
-            if (role == null)
-            {
-                _dbContext.Roles.Add(new IdentityRole { Name = roleName, NormalizedName = roleName });
-                _dbContext.SaveChanges();
-            }
-        }
-
-        private void AddUserIfNotExists(string userName, string password, string[] roles)
-        {
-            if (_userManager.FindByEmailAsync(userName).Result != null) return;
-
-            var user = new IdentityUser
-            {
-                UserName = userName,
-                Email = userName,
-                EmailConfirmed = true
-            };
-            _userManager.CreateAsync(user, password).Wait();
-            _userManager.AddToRolesAsync(user, roles).Wait();
-        }
-
-        private void AddCountryIfNotExists(string countryName, string countryCode)
-        {
-            if (_dbContext.Countries.Any(c => c.CountryName == countryName && c.CountryCode == countryCode)) return;
-            var country = new Country
-            {
-                CountryName = countryName,
-                CountryCode = countryCode
-            };
-            _dbContext.Countries.Add(country);
+            _dbContext.Roles.Add(new IdentityRole { Name = roleName, NormalizedName = roleName });
             _dbContext.SaveChanges();
         }
+    }
+
+    private void AddUserIfNotExists(string userName, string password, string[] roles)
+    {
+        if (_userManager.FindByEmailAsync(userName).Result != null) return;
+
+        var user = new IdentityUser
+        {
+            UserName = userName,
+            Email = userName,
+            EmailConfirmed = true
+        };
+        _userManager.CreateAsync(user, password).Wait();
+        _userManager.AddToRolesAsync(user, roles).Wait();
+    }
+
+    private void AddCountryIfNotExists(string countryName, string countryCode)
+    {
+        if (_dbContext.Countries.Any(c => c.CountryName == countryName && c.CountryCode == countryCode)) return;
+        var country = new Country
+        {
+            CountryName = countryName,
+            CountryCode = countryCode
+        };
+        _dbContext.Countries.Add(country);
+        _dbContext.SaveChanges();
     }
 }
