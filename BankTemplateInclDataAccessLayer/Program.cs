@@ -29,6 +29,7 @@ builder.Services.AddTransient<ITransactionService, TransactionService>();
 builder.Services.AddTransient<IDispositionService, DispositionService>();
 builder.Services.AddTransient<ICardService, CardService>();
 builder.Services.AddTransient<ICountryService, CountryService>();
+builder.Services.AddTransient<ICreateCustomerService, CreateCustomerService>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

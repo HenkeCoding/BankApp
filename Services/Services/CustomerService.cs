@@ -56,45 +56,6 @@ public class CustomerService : ICustomerService
         _dbContext.SaveChanges();
     }
 
-    public void CreateCustomer(
-        string gender,
-        string givenname,
-        string surname,
-        string streetaddress,
-        string city,
-        string zipcode,
-        string country,
-        string countryCode,
-        DateOnly? birthday,
-        string? nationalId,
-        string? telephonecountrycode,
-        string? telephonenumber,
-        string? emailaddress
-        )
-    {
-        var customer = new Customer
-        {
-            Gender = gender,
-            Givenname = givenname,
-            Surname = surname,
-            Streetaddress = streetaddress,
 
-            City = city,
-            Zipcode = zipcode,
-            Country = country,
-
-            CountryCode = countryCode,
-            Birthday = birthday,
-            NationalId = nationalId,
-
-            Telephonecountrycode = telephonecountrycode,
-            Telephonenumber = telephonenumber,
-            Emailaddress = emailaddress
-        };
-
-        _dbContext.Customers.Add(customer);
-
-        Update(customer);
-    }
 }
 

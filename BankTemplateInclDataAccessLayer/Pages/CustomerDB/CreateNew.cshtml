@@ -96,12 +96,22 @@
             </div>
 
 
+            <div class="form-group">
+                <label asp-for="AccountFrequency">Account Frequency</label>
+                <select class="form-control" asp-for="AccountFrequency" asp-items="@Model.AccountFrequencies">
+                </select>
+                <span asp-validation-for="AccountFrequency"
+                      class="field-validation-error"></span>
+            </div>
+
+
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
 </div>
 
+
 @section Scripts
-                {
+{
     <partial name="Shared/_ValidationScriptsPartial" />
 }

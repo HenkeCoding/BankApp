@@ -4,7 +4,8 @@
 
 }
 
-<a asp-page="AccountImage" 
+<a 
+    asp-page="AccountImage" 
     asp-route-accountId="@Model.AccountId" 
     asp-route-pageSize="5">
     <div class="btn btn-primary">
@@ -20,7 +21,8 @@
     </div>
 </a>
 
-<a asp-page="AccountImage" 
+<a 
+    asp-page="AccountImage" 
     asp-route-accountId="@Model.AccountId" 
     asp-route-pageSize="20">
     <div class="btn btn-primary">
@@ -35,7 +37,8 @@
         Account owner: @Model.OwnerCustomer.Givenname @Model.OwnerCustomer.Surname
     </div>
     <div class="card-body">
-        <a asp-page="/CustomerDB/CustomerImage"
+        <a 
+           asp-page="/CustomerDB/CustomerImage"
            asp-route-customerId="@Model.OwnerCustomerId"
            asp-route-pageSize="10">
             <div class="btn btn-primary">
@@ -54,7 +57,8 @@
             Account disponent: @Model.DisponentCustomer.Givenname @Model.DisponentCustomer.Surname
         </div>
         <div class="card-body">
-            <a asp-page="/CustomerDB/CustomerImage"
+            <a 
+               asp-page="/CustomerDB/CustomerImage"
                asp-route-customerId="@Model.DisponentCustomerId"
                asp-route-pageSize="10">
                 <div class="btn btn-primary">
@@ -168,7 +172,6 @@
                     showMore();
                 });
 
-
                 function showMore() {
                     fetch(`AccountImage?handler=ShowMore&pageNo=${pageNo}&accountId=${accountId}&pageSize=${pageSize}`)
                         .then((response) => response.json())
@@ -177,7 +180,6 @@
                             json.listOfTransactions.forEach(drawElements);
                         });
                 }
-
 
                 function drawElements(element) {
                     document.querySelector('#transactions-table tbody').innerHTML +=
@@ -192,6 +194,11 @@
                         </tr>`;
                 }
 
-
     </script>
 }
+
+<a class="btn btn-primary"
+   asp-area="Database"
+   asp-page="Index">
+    Back to List
+</a>

@@ -110,10 +110,18 @@
                         <td>@customer.Surname</td>
                         <td></td>
                         <td>
-                            <a asp-page="CustomerImage" asp-route-customerId="@customer.CustomerId" class="btn btn-primary">View</a>
+                            <a class="btn btn-primary"
+                                asp-page="CustomerImage" 
+                                asp-route-customerId="@customer.CustomerId" >
+                                View
+                            </a>
                         </td>
                         <td>
-                            <a asp-page="Edit" asp-route-customerId="@customer.CustomerId" class="btn btn-primary">Edit</a>
+                            <a class="btn btn-primary"
+                                asp-page="Edit" 
+                                asp-route-customerId="@customer.CustomerId">
+                                Edit
+                                </a>
                         </td>
 
                     </tr>
