@@ -43,6 +43,14 @@ public class CustomerService : ICustomerService
             else if (sortOrder == "desc")
                 query = query.OrderByDescending(s => s.Surname);
 
+        if (sortColumn == "City")
+            if (sortOrder == "asc")
+                query = query.OrderBy(s => s.City);
+            else if (sortOrder == "desc")
+                query = query.OrderByDescending(s => s.City);
+
+
+
         return query.GetPaged(pageNo, pageSize);
     }
 

@@ -154,11 +154,17 @@
 
 
         </table>
-        <a class="btn btn-primary" href="javascript:showMore();">Show More</a>
+        <a class="btn btn-primary" href="javascript:showMore();">
+            <i class='bx bx-chevron-down'></i>
+            Show More
+        </a>
     </div>
 </div>
 
-
+<a class="btn btn-primary"
+   asp-page="/AccountDB/Index">
+    Back to List
+</a>
 
 @section Scripts
 {
@@ -197,8 +203,3 @@
     </script>
 }
 
-<a class="btn btn-primary"
-   asp-area="Database"
-   asp-page="Index">
-    Back to List
-</a>

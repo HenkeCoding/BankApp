@@ -5,6 +5,8 @@ namespace BankApp.ViewModels
 {
     public class CustomerViewModel
     {
+        public int CustomerId { get; set; }
+
         [ValidGenderAttribute]
         public string Gender { get; set; }
 
