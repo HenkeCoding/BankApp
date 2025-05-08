@@ -12,16 +12,32 @@
 
 
         @*Search*@
-        <form method="get">
+        <form method="get" id="search-form" >
+
+
             <input asp-for="@Model.Q" />
-            <input type="submit" value="Search" />
+
+
+            <button id="search-button-name" class="btn btn-secondary">
+                Search customers by name
+            </button>
+
+            <button id="search-button-city"  class="btn btn-secondary" >
+                Search customers by city
+            </button>
+
+            
         </form>
+
+
+
 
         Results per page:
 
         <a class="btn btn-primary"
            asp-page="/CustomerDB/Index"
            asp-route-q="@Model.Q"
+           asp-route-searchSubject="@Model.SearchSubject"
            asp-route-sortColumn="@Model.SortColumn"
            asp-route-sortOrder="@Model.SortOrder"
            asp-route-pageNo="@Model.PageNo"
@@ -31,6 +47,7 @@
         <a class="btn btn-primary"
            asp-page="/CustomerDB/Index"
            asp-route-q="@Model.Q"
+           asp-route-searchSubject="@Model.SearchSubject"
            asp-route-sortColumn="@Model.SortColumn"
            asp-route-sortOrder="@Model.SortOrder"
            asp-route-pageNo="@Model.PageNo"
@@ -40,17 +57,43 @@
         <a class="btn btn-primary"
            asp-page="/CustomerDB/Index"
            asp-route-q="@Model.Q"
+           asp-route-searchSubject="@Model.SearchSubject"
            asp-route-sortColumn="@Model.SortColumn"
            asp-route-sortOrder="@Model.SortOrder"
            asp-route-pageNo="@Model.PageNo"
            asp-route-pageSize="50">
             50
         </a>
+        <a class="btn btn-primary"
+		   asp-page="/CustomerDB/Index"
+           asp-route-q="@Model.Q"
+           asp-route-searchSubject="@Model.SearchSubject"
+		   asp-route-sortColumn="@Model.SortColumn"
+		   asp-route-sortOrder="@Model.SortOrder"
+		   asp-route-pageNo="@Model.PageNo"
+		   asp-route-pageSize="100">
+			100
+		</a>
+
 
         <a class="btn btn-primary" 
            asp-page="CreateNew">
-            Create New
+            <i class='bx bxs-user-plus'></i>
+            Create New Customer
         </a>
+
+
+        <form action="/CustomerDB/CustomerImage" >
+
+            <label for="CustomerId">Find customer by ID:</label><br>
+            <input type="text" id="CustomerId" name="CustomerId" value=""><br>
+
+            <input type="submit" value="Submit" class="btn btn-secondary">
+
+        </form>
+
+
+
     </div>
 
 
@@ -63,6 +106,7 @@
                         <a 
                            asp-page="/CustomerDB/Index"
                            asp-route-q="@Model.Q"
+                           asp-route-searchSubject="@Model.SearchSubject"
                            asp-route-sortColumn="Givenname"
                            asp-route-sortOrder="asc"
                            asp-route-pageSize="@Model.PageSize">
@@ -71,6 +115,7 @@
                         <a 
                            asp-page="/CustomerDB/Index"
                            asp-route-q="@Model.Q"
+                           asp-route-searchSubject="@Model.SearchSubject"
                            asp-route-sortColumn="Givenname"
                            asp-route-sortOrder="desc"
                            asp-route-pageSize="@Model.PageSize">
@@ -82,6 +127,7 @@
                         <a
                            asp-page="/CustomerDB/Index"
                            asp-route-q="@Model.Q"
+                           asp-route-searchSubject="@Model.SearchSubject"
                            asp-route-sortColumn="Surname"
                            asp-route-sortOrder="asc"
                            asp-route-pageSize="@Model.PageSize">
@@ -90,6 +136,7 @@
                         <a
                            asp-page="/CustomerDB/Index"
                            asp-route-q="@Model.Q"
+                           asp-route-searchSubject="@Model.SearchSubject"
                            asp-route-sortColumn="Surname"
                            asp-route-sortOrder="desc"
                            asp-route-pageSize="@Model.PageSize">
@@ -100,6 +147,7 @@
                         City
                         <a asp-page="/CustomerDB/Index"
                            asp-route-q="@Model.Q"
+                           asp-route-searchSubject="@Model.SearchSubject"
                            asp-route-sortColumn="City"
                            asp-route-sortOrder="asc"
                            asp-route-pageSize="@Model.PageSize">
@@ -107,6 +155,7 @@
                         </a>
                         <a asp-page="/CustomerDB/Index"
                            asp-route-q="@Model.Q"
+                           asp-route-searchSubject="@Model.SearchSubject"
                            asp-route-sortColumn="City"
                            asp-route-sortOrder="desc"
                            asp-route-pageSize="@Model.PageSize">
@@ -159,6 +208,7 @@
                             <a class="btn btn-secondary"
                                asp-page="/CustomerDB/Index"
                                asp-route-q="@Model.Q"
+                               asp-route-searchSubject="@Model.SearchSubject"
                                asp-route-sortColumn="@Model.SortColumn"
                                asp-route-sortOrder="@Model.SortOrder"
                                asp-route-pageSize="@Model.PageSize"
@@ -176,6 +226,7 @@
                             <a class="btn @(Model.PageNo == i ? "btn-primary" : "btn-secondary")"
                                asp-page="/CustomerDB/Index"
                                asp-route-q="@Model.Q"
+                               asp-route-searchSubject="@Model.SearchSubject"
                                asp-route-sortColumn="@Model.SortColumn"
                                asp-route-sortOrder="@Model.SortOrder"
                                asp-route-pageSize="@Model.PageSize"
@@ -193,6 +244,7 @@
                             <a class="btn btn-secondary"
                                asp-page="/CustomerDB/Index"
                                asp-route-q="@Model.Q"
+                               asp-route-searchSubject="@Model.SearchSubject"
                                asp-route-sortColumn="@Model.SortColumn"
                                asp-route-sortOrder="@Model.SortOrder"
                                asp-route-pageSize="@Model.PageSize"
@@ -211,3 +263,38 @@
         </table>
     </div>
 </div>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        let subject = "thing"
+
+
+        $("#search-button-name").click(function(ev){
+             subject = "Name"
+        });
+
+        $("#search-button-city").click(function(ev){
+             subject = "City"
+        });
+
+        //             $("#search-form").submit( function(eventObj) {
+        //         $("<input />").attr("type", "hidden")
+        //         .attr("name", "searchSubject")
+        //         .attr("value", "City")
+        //         .appendTo("#searchform");
+        //         return true;
+        //     });
+
+
+
+                $('#search-form').submit(function(eventObj) {
+                    $(this).append('<input type="hidden" name="searchSubject" value="' + subject + '" /> ');
+                    return true;
+                });
+
+
+
+    </script>
+}

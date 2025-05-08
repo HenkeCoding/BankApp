@@ -27,6 +27,9 @@ public class IndexModel : PageModel
     public string SortColumn { get; set; }
     public string SortOrder { get; set; }
     public string Q { get; set; }
+
+    public string SearchSubject { get; set; }
+
     public int PageCount { get; set; }
     public int PageSize { get; set; } = 5;
 
@@ -36,10 +39,12 @@ public class IndexModel : PageModel
             string sortOrder,
             int pageNo,
             int pageSize,
-            string q
+            string q,
+            string searchSubject
         )
     {
         Q = q; // Söktext
+        SearchSubject = searchSubject; // Sökämne
 
         SortColumn = sortColumn;
         SortOrder = sortOrder;
@@ -52,7 +57,7 @@ public class IndexModel : PageModel
             pageSize = 5;
         PageSize = pageSize;
 
-        var result = _customerService.GetCustomers(PageNo, PageSize, SortColumn, SortOrder, Q);
+        var result = _customerService.GetCustomers(PageNo, PageSize, SortColumn, SortOrder, Q, SearchSubject);
 
         PageCount = result.PageCount;
 

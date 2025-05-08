@@ -10,8 +10,10 @@ public interface ICustomerService
         int pageSize,
         string sortColumn,
         string sortOrder,
-        string q
+        string q,
+        string searchSubject
         );
+
     void Update(Customer customer);
     Customer GetCustomer(int customerId);
 }

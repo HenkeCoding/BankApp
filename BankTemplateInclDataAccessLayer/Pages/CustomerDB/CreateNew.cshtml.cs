@@ -135,9 +135,6 @@ public class CreateNewModel : PageModel
             );
 
 
-
-
-
             return RedirectToPage("Index");
         }
 

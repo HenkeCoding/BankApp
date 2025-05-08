@@ -32,8 +32,13 @@ public class CustomerImageModel : PageModel
 
 
 
-    public void OnGet(int customerId)
+    public IActionResult OnGet(int customerId)
     {
+        if (customerId == null || customerId == 0)
+        {
+            return RedirectToPage("Index");
+        }
+
         var CustomerDb = _customerService.GetCustomer(customerId);
 
         CustomerToView = new CustomerViewModel();
@@ -76,6 +81,6 @@ public class CustomerImageModel : PageModel
             .ToList();
 
 
-
+        return Page();
     }
 }

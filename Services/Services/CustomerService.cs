@@ -19,17 +19,38 @@ public class CustomerService : ICustomerService
         int pageSize,
         string sortColumn,
         string sortOrder,
-        string q
+        string q,
+        string searchSubject
         )
     {
         IEnumerable<Customer> query = _dbContext.Customers;
 
+        if (q != null)
+        {
+            q = q.ToLower();
+        }
+
+
         if (!string.IsNullOrEmpty(q))
         {
-            query = query
-                .Where(p => p.Givenname.Contains(q) ||
-                p.Surname.Contains(q));
+            if (searchSubject == "Name")
+            {
+                query = query
+                    .Where(p => p.Givenname.ToLower().Contains(q) ||
+                    p.Surname.ToLower().Contains(q));
+            }
+            else if (searchSubject == "City")
+            {
+                query = query
+                    .Where(p => p.City.ToLower().Contains(q));
+            }
+
+
+
         }
+
+
+
 
         if (sortColumn == "Givenname")
             if (sortOrder == "asc")
