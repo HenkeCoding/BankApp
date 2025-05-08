@@ -14,13 +14,20 @@ public class CustomerImageModel : PageModel
 {
     private readonly ICustomerService _customerService;
     private readonly IDispositionService _dispositionService;
+    private readonly ICustomerBalanceService _customerBalanceService;
     private readonly IMapper _mapper;
 
 
-    public CustomerImageModel(ICustomerService customerService, IDispositionService dispositionService, IMapper mapper)
+    public CustomerImageModel(
+        ICustomerService customerService, 
+        IDispositionService dispositionService, 
+        IMapper mapper,
+        ICustomerBalanceService customerBalanceService
+        )
     {
         _customerService = customerService;
         _dispositionService = dispositionService;
+        _customerBalanceService = customerBalanceService;
         _mapper = mapper;
 
     }
@@ -45,6 +52,8 @@ public class CustomerImageModel : PageModel
 
         _mapper.Map(CustomerDb, CustomerToView);
 
+
+        CustomerToView.TotalBalance = _customerBalanceService.GetCustomerTotalBalanceByCustomerId(customerId);
 
 
         Dispositions = _dispositionService.GetDispositionsByCustomerId(customerId)

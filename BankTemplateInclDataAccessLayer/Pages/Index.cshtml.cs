@@ -23,40 +23,17 @@ public class IndexModel : PageModel
     {
         Countries = new List<CountryBoxViewModel>();
 
-        Countries.Add(new CountryBoxViewModel
-        {
-            CountryCode = "NO",
-            CountryName = "Norway",
-            Customers = _countryService.GetCustomersByCountryCode("NO").Select(c => new CustomerViewModel { }).ToList(),
-            Accounts = _countryService.GetAccountsByCountryCode("NO").Select(a => new AccountViewModel { }).ToList(),
-            BalanceSum = _countryService.GetBalanceSumByCountryCode("NO")
-        });
 
-        Countries.Add(new CountryBoxViewModel
-        {
-            CountryCode = "SE",
-            CountryName = "Sweden",
-            Customers = _countryService.GetCustomersByCountryCode("SE").Select(c => new CustomerViewModel { }).ToList(),
-            Accounts = _countryService.GetAccountsByCountryCode("SE").Select(a => new AccountViewModel { }).ToList(),
-            BalanceSum = _countryService.GetBalanceSumByCountryCode("SE")
-        });
-
-        Countries.Add(new CountryBoxViewModel { 
-            CountryCode = "FI", 
-            CountryName = "Finland",
-            Customers = _countryService.GetCustomersByCountryCode("FI").Select(c => new CustomerViewModel { }).ToList(),
-            Accounts = _countryService.GetAccountsByCountryCode("FI").Select(a => new AccountViewModel { }).ToList(),
-            BalanceSum = _countryService.GetBalanceSumByCountryCode("FI")
-        });
-
-        Countries.Add(new CountryBoxViewModel { 
-            CountryCode = "DK", 
-            CountryName = "Denmark",
-            Customers = _countryService.GetCustomersByCountryCode("DK").Select(c => new CustomerViewModel { }).ToList(),
-            Accounts = _countryService.GetAccountsByCountryCode("DK").Select(a => new AccountViewModel { }).ToList(),
-            BalanceSum = _countryService.GetBalanceSumByCountryCode("DK")
-        });
-
+        Countries = _countryService.GetCountries()
+            .Select(c => new CountryBoxViewModel
+            {
+                CountryId = c.CountryId,
+                CountryCode = c.CountryCode,
+                CountryName = c.CountryName,
+                Customers = _countryService.GetCustomersByCountryCode(c.CountryCode).Select(c => new CustomerViewModel { }).ToList(),
+                Accounts = _countryService.GetAccountsByCountryCode(c.CountryCode).Select(a => new AccountViewModel { }).ToList(),
+                BalanceSum = _countryService.GetBalanceSumByCountryCode(c.CountryCode)
+            }).ToList();
 
 
     }

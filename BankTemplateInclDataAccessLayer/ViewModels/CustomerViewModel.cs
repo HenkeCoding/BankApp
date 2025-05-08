@@ -33,5 +33,7 @@ namespace BankApp.ViewModels
         public string? Telephonenumber { get; set; }
         [StringLength(150)][EmailAddress] public string? Emailaddress { get; set; }
 
+        public decimal? TotalBalance { get; set; }
+
     }
 }

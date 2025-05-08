@@ -1,0 +1,104 @@
+﻿@page
+@model BankApp.Pages.Countries.CountryImageModel
+@{
+}
+
+@{
+    var country = Model.Country;
+}
+
+
+<div class="card">
+
+	<div class="card-header">
+		<h1>Top 10 richest customers for @Model.Country.CountryName</h1>
+	</div>
+
+	<div class="card-body">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        First name
+                        @* <a asp-page="/CustomerDB/Index"
+                           asp-route-sortColumn="Givenname"
+                           asp-route-sortOrder="asc">
+                            <i class='bx bx-chevron-up'></i>
+                        </a>
+                        <a asp-page="/CustomerDB/Index"
+                           asp-route-sortColumn="Givenname"
+                           asp-route-sortOrder="desc">
+                            <i class='bx bx-chevron-down'></i>
+                        </a> *@
+                    </th>
+                    <th>
+                        Last name
+                        @* <a asp-page="/CustomerDB/Index"
+                           asp-route-sortColumn="Surname"
+                           asp-route-sortOrder="asc">
+                            <i class='bx bx-chevron-up'></i>
+                        </a>
+                        <a asp-page="/CustomerDB/Index"
+                           asp-route-sortColumn="Surname"
+                           asp-route-sortOrder="desc">
+                            <i class='bx bx-chevron-down'></i>
+                        </a> *@
+                    </th>
+                    <th>
+                        City
+                        @*  <a asp-page="/CustomerDB/Index"
+                           asp-route-sortColumn="City"
+                           asp-route-sortOrder="asc">
+                            <i class='bx bx-chevron-up'></i>
+                        </a>
+                        <a asp-page="/CustomerDB/Index"
+                           asp-route-sortColumn="City"
+                           asp-route-sortOrder="desc">
+                            <i class='bx bx-chevron-down'></i>
+                        </a> *@
+                    </th>
+                    <th>
+                        Address
+                    </th>
+                    <th>
+                        National ID
+                    </th>
+                    <th>
+                        Balance
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var customer in Model.Customers)
+                {
+                    <tr>
+                        <td>@customer.Givenname</td>
+                        <td>@customer.Surname</td>
+                        <td>@customer.City</td>
+                        <td>@customer.Streetaddress</td>
+                        <td>@customer.NationalId</td>
+						<td>@customer.TotalBalance</td>
+                        <td>
+                            <a class="btn btn-primary"
+                               asp-page="/CustomerDB/CustomerImage"
+                               asp-route-customerId="@customer.CustomerId">
+                                View
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary"
+                               asp-page="/CustomerDB/Edit"
+                               asp-route-customerId="@customer.CustomerId">
+                                Edit
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+	</div> <!-- end card body -->
+</div>

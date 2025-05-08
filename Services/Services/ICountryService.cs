@@ -11,5 +11,6 @@ namespace Services.Services
         IEnumerable<Country> GetCountries();
         Country GetCountryById(int countryId);
         Country GetCountryByCode(string countryCode);
+        IEnumerable<Customer> GetTopCustomersForCountryByCountryCode(string countryCode);
     }
 }

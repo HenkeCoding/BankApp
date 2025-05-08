@@ -11,10 +11,14 @@
 
             <div>Accounts: @Model.Accounts.Count()</div>
 
-            <div>Customers: @Model.BalanceSum</div>
+            <div>Total balance: @Model.BalanceSum</div>
 
 
-            <a href="#" class="btn btn-primary">View</a>
+            <a class="btn btn-primary"
+               asp-page="/Countries/CountryImage" 
+               asp-route-countryId=@Model.CountryId>
+                View
+            </a>
 
         </div> <!-- end information -->
     </div> <!-- end container -->

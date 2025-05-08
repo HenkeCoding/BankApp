@@ -266,34 +266,24 @@
 
 @section scripts
 {
+    @* När jag skapade det här scriptet använde jag mig av google och stackoverflow som hjälp. *@
+
     <script type="text/javascript">
 
         let subject = "thing"
 
-
         $("#search-button-name").click(function(ev){
-             subject = "Name"
+            subject = "Name"
         });
 
         $("#search-button-city").click(function(ev){
-             subject = "City"
+            subject = "City"
         });
 
-        //             $("#search-form").submit( function(eventObj) {
-        //         $("<input />").attr("type", "hidden")
-        //         .attr("name", "searchSubject")
-        //         .attr("value", "City")
-        //         .appendTo("#searchform");
-        //         return true;
-        //     });
-
-
-
-                $('#search-form').submit(function(eventObj) {
-                    $(this).append('<input type="hidden" name="searchSubject" value="' + subject + '" /> ');
-                    return true;
-                });
-
+        $('#search-form').submit(function(eventObj) {
+            $(this).append('<input type="hidden" name="searchSubject" value="' + subject + '" /> ');
+            return true;
+        });
 
 
     </script>

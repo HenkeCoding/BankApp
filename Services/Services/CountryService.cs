@@ -51,7 +51,16 @@ namespace Services.Services
         public Country GetCountryByCode(string countryCode)
         {
             return _dbContext.Countries
-    .FirstOrDefault(c => c.CountryCode == countryCode);
+                .FirstOrDefault(c => c.CountryCode == countryCode);
+        }
+
+        public IEnumerable<Customer> GetTopCustomersForCountryByCountryCode(string countryCode)
+        {
+            return _dbContext.Customers
+                .Where(c => c.CountryCode == countryCode)
+                .OrderByDescending(c => c.Dispositions.Sum(d => d.Account.Balance))
+                .Take(10)
+                .ToList();
         }
     }
 }
