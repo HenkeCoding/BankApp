@@ -31,13 +31,13 @@
             </div>
 
 
-            <input asp-for="Input.UserRole" type="radio" value="Admin" />
-            <label asp-for="Input.UserRole">Administrator</label> <br />
+            <input asp-for="Input.UserRole" type="radio" value="Admin" id="role-input-admin" />
+            <label for="role-input-admin">Administrator</label> <br />
 
-            <input asp-for="Input.UserRole" type="radio" value="Cashier" />
-            <label asp-for="Input.UserRole">Cashier</label> <br />
+            <input asp-for="Input.UserRole" type="radio" value="Cashier" id="role-input-cashier" />
+            <label for="role-input-cashier">Cashier</label> <br />
 
-            <button id="registerSubmit" type="submit" class="w-100 btn get-started-btn"><i class="fas fa-plus-circle"></i> Register</button>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-primary"><i class="fas fa-plus-circle"></i> Register</button>
         
 
         </form>
