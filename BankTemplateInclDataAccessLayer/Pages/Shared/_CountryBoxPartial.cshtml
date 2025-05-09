@@ -3,7 +3,14 @@
 
 <div class="card"
     <div class="container">
-        <span class="fi fi-@Model.CountryCode.ToLower()" class="hero-image"></span>
+
+        <div class="card-header">
+			<h1>@Model.CountryName</h1>
+
+
+
+            <span class="fi fi-@Model.CountryCode.ToLower()" class="hero-image"></span>
+        </div>
 
         <div class="card-body">
 
@@ -21,5 +28,6 @@
             </a>
 
         </div> <!-- end information -->
+
     </div> <!-- end container -->
 </div>

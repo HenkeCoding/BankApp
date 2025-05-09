@@ -4,31 +4,7 @@
 
 }
 
-<a 
-    asp-page="AccountImage" 
-    asp-route-accountId="@Model.AccountId" 
-    asp-route-pageSize="5">
-    <div class="btn btn-primary">
-        5 results
-    </div>
-</a>
 
-<a 
-    asp-page="AccountImage" asp-route-accountId="@Model.AccountId" 
-    asp-route-pageSize="10">
-    <div class="btn btn-primary">
-        10 results
-    </div>
-</a>
-
-<a 
-    asp-page="AccountImage" 
-    asp-route-accountId="@Model.AccountId" 
-    asp-route-pageSize="20">
-    <div class="btn btn-primary">
-        20 results
-    </div>
-</a>
 
 
 
@@ -43,6 +19,7 @@
            asp-route-pageSize="10">
             <div class="btn btn-primary">
                 View account owner
+                <i class="fa-solid fa-user"></i>
             </div>
         </a>
     </div>
@@ -63,6 +40,7 @@
                asp-route-pageSize="10">
                 <div class="btn btn-primary">
                     View account disponent
+                    <i class="fa-solid fa-user"></i>
                 </div>
             </a>
         </div>
@@ -73,8 +51,11 @@
 @if (Model.Cards.Any() == true)
 {
     <div class="card">
-        <div class="card-header">
-            Cards
+        <div class="card-header">   
+            <h1>
+                <i class="fa-solid fa-credit-card"></i>
+                Cards
+            </h1>
         </div>
         <div class="card-body">
             <table class="table">
@@ -138,9 +119,35 @@
 
 <div class="card">
     <div class="card-header">
-        <h1>All Transactions</h1>
+        <h1>
+            <i class="fa-solid fa-money-bill-transfer"></i>
+            All Transactions
+        </h1>
     </div>
     <div class="card-body">
+
+		Number of transactions per page:
+
+        <a class="btn btn-primary"
+            asp-page="AccountImage" 
+            asp-route-accountId="@Model.AccountId" 
+            asp-route-pageSize="5">
+            5
+        </a>
+
+        <a class="btn btn-primary"
+            asp-page="AccountImage" asp-route-accountId="@Model.AccountId" 
+            asp-route-pageSize="10">
+            10
+        </a>
+
+        <a class="btn btn-primary"
+            asp-page="AccountImage" 
+            asp-route-accountId="@Model.AccountId" 
+            asp-route-pageSize="20">
+            20
+        </a>
+
         <table class="table" id="transactions-table">
             <tr>
                 <th>Date</th>

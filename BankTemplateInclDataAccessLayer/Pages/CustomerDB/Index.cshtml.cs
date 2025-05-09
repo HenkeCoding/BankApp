@@ -31,7 +31,7 @@ public class IndexModel : PageModel
     public string SearchSubject { get; set; }
 
     public int PageCount { get; set; }
-    public int PageSize { get; set; } = 5;
+    public int PageSize { get; set; } = 50;
 
 
     public void OnGet(
@@ -54,7 +54,7 @@ public class IndexModel : PageModel
         PageNo = pageNo;
 
         if (pageSize == 0)
-            pageSize = 5;
+            pageSize = 50;
         PageSize = pageSize;
 
         var result = _customerService.GetCustomers(PageNo, PageSize, SortColumn, SortOrder, Q, SearchSubject);

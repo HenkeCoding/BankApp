@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.Services;
 using BankApp.ViewModels;
+using Azure;
 
 namespace BankApp.Pages.AccountDB;
 
@@ -37,7 +38,7 @@ public class AccountImageModel : PageModel
     public CustomerViewModel DisponentCustomer { get; set; }
 
 
-    public int PageSize { get; set; } = 5;
+    public int PageSize { get; set; }
 
 
     public List<TransactionViewModel> Transactions { get; set; }
@@ -81,16 +82,11 @@ public class AccountImageModel : PageModel
 
         AccountId = accountId;
 
-        
-        if(pageSize != null)
-        {
-            PageSize = pageSize;
-        }
-        else
-        {
-            PageSize = 5;
-        }
-        
+
+        if (pageSize == 0)
+            pageSize = 10;
+        PageSize = pageSize;
+
 
         Cards = _cardService.GetCardsByAccountId(accountId)
             .Select(c => new CardViewModel

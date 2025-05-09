@@ -8,10 +8,39 @@
         <h1>All Accounts</h1>
     </div>
     <div class="card-body">
+
+        Results per page:
+
+        <a class="btn btn-primary"
+           asp-page="Index" 
+           asp-route-pageSize="10">
+            10
+        </a>
+
+        <a class="btn btn-primary"
+           asp-page="Index"
+           asp-route-pageSize="20">
+            20
+        </a>
+
+        <a class="btn btn-primary"
+           asp-page="Index"
+           asp-route-pageSize="50">
+            50
+		</a>
+
+        <a class="btn btn-primary"
+           asp-page="Index"
+           asp-route-pageSize="100">
+            100
+		</a>
+
+
         <table class="table">
             <tr>
                 <th>Account number</th>
                 <th>Balance</th>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -21,14 +50,24 @@
                 <tr>
                     <td>@acc.AccountId</td>
                     <td>@acc.Balance</td>
+                    <td></td>
                     <td>
-                        <a asp-page="AccountImage" asp-route-accountId="@acc.AccountId" asp-route-pageSize="10" class="btn btn-primary">View</a>
+                        <a asp-page="AccountImage" asp-route-accountId="@acc.AccountId" asp-route-pageSize="10" class="btn btn-primary">
+                            <i class="fa-solid fa-file-invoice-dollar"></i>
+                            View
+                        </a>
                     </td>
                     <td>
-                        <a asp-page="Withdraw" asp-route-accountId="@acc.AccountId" class="btn btn-primary"><i class="fas fa-minus-circle"></i>Withdraw</a>
+                        <a asp-page="Withdraw" asp-route-accountId="@acc.AccountId" class="btn btn-primary">
+                            <i class="fa-solid fa-circle-minus"></i>
+                            Withdraw
+                        </a>
                     </td>
                     <td>
-                        <a asp-page="Deposit" asp-route-accountId="@acc.AccountId" class="btn btn-primary"><i class="fas fa-plus-circle"></i>Deposit</a>
+                        <a asp-page="Deposit" asp-route-accountId="@acc.AccountId" class="btn btn-primary">
+                            <i class="fa-solid fa-circle-plus"></i>
+                            Deposit
+                        </a>
                     </td>
 
                 </tr>
@@ -41,6 +80,7 @@
                         <a class="btn btn-secondary"
                            asp-page="/AccountDB/Index"
                            asp-route-pageNo="@(Model.PageNo-1)">
+                            <i class="fa-solid fa-arrow-left"></i>
                             Prev
                         </a>
                     }
@@ -66,6 +106,7 @@
                            asp-page="/AccountDB/Index"
                            asp-route-pageNo="@(Model.PageNo + 1)">
                             Next
+                            <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     }
                 </td>

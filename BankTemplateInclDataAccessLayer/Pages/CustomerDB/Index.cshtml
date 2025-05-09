@@ -17,13 +17,16 @@
 
             <input asp-for="@Model.Q" />
 
+            Search for customers
 
             <button id="search-button-name" class="btn btn-secondary">
-                Search customers by name
+                by name
+                <i class="fa-solid fa-signature"></i>
             </button>
 
             <button id="search-button-city"  class="btn btn-secondary" >
-                Search customers by city
+                by city
+                <i class="fa-solid fa-city"></i>
             </button>
 
             
@@ -186,6 +189,7 @@
                             <a class="btn btn-primary"
                                 asp-page="CustomerImage" 
                                 asp-route-customerId="@customer.CustomerId" >
+                                <i class="fa-solid fa-user"></i>
                                 View
                             </a>
                         </td>
@@ -193,6 +197,7 @@
                             <a class="btn btn-primary"
                                 asp-page="Edit" 
                                 asp-route-customerId="@customer.CustomerId">
+                                <i class="fa-solid fa-user-pen"></i>
                                 Edit
                                 </a>
                         </td>
@@ -200,7 +205,7 @@
                     </tr>
                 }
 
-
+                <!-- Paging -->
                 <tr>
                     <td>
                         @if (Model.PageNo != 1)
@@ -214,6 +219,7 @@
                                asp-route-pageSize="@Model.PageSize"
                                asp-route-pageNo="@(Model.PageNo-1)"
                             >
+                                <i class="fa-solid fa-arrow-left"></i>
                                 Prev
                             </a>
                         }
@@ -251,6 +257,7 @@
                                asp-route-pageNo="@(Model.PageNo + 1)"
                             >
                                 Next
+                                <i class="fa-solid fa-arrow-right"></i>
                             </a>
                         }
                     </td>
