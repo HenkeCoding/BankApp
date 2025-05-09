@@ -48,12 +48,12 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<BankAppDataContext>();?
+    var dbContext = scope.ServiceProvider.GetRequiredService<BankAppDataContext>();
 
-    if (dbContext.Database.IsRelational())?
-    {?
-        dbContext.Database.Migrate();?
-    }?
+    if (dbContext.Database.IsRelational())
+    {
+        dbContext.Database.Migrate();
+    }
 }
 
 
