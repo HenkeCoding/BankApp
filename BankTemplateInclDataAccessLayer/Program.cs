@@ -9,6 +9,7 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
@@ -41,6 +42,20 @@ builder.Services.AddDbContext<BankAppDataContext>(options =>
     options.UseSqlServer(connectionString));
 
 var app = builder.Build();
+
+
+// Behövs för Azure!?
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<BankAppDataContext>();?
+
+    if (dbContext.Database.IsRelational())?
+    {?
+        dbContext.Database.Migrate();?
+    }?
+}
+
 
 
 using (var scope = app.Services.CreateScope())

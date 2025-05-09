@@ -42,7 +42,7 @@ namespace BankApp.Pages.Countries
             Customers = _countryService.GetTopCustomersForCountryByCountryCode(Country.CountryCode)
                 .Select(x => new CustomerViewModel {
 
-                CustomerId = x.CustomerId,
+                ViewId = x.CustomerId,
                 Givenname = x.Givenname,
                 Surname = x.Surname,
 

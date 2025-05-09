@@ -21,7 +21,7 @@ public class DepositModel : PageModel
     [Range(100, 10000)]
     public decimal Amount { get; set; }
     public DateTime DepositDate { get; set; }
-    public string Comment { get; set; }
+    public string Comment { get; set; } = string.Empty;
 
     public void OnGet(int accountId)
     {

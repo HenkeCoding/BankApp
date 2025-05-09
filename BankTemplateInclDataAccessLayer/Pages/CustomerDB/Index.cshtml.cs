@@ -64,7 +64,7 @@ public class IndexModel : PageModel
         Customers = result.Results
             .Select(c => new CustomerViewModel
             {
-                CustomerId = c.CustomerId,
+                ViewId = c.CustomerId,
                 Givenname = c.Givenname,
                 Surname = c.Surname,
                 City = c.City,

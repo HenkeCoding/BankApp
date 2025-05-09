@@ -52,6 +52,7 @@ public class CustomerImageModel : PageModel
 
         _mapper.Map(CustomerDb, CustomerToView);
 
+        CustomerToView.ViewId = CustomerDb.CustomerId;
 
         CustomerToView.TotalBalance = _customerBalanceService.GetCustomerTotalBalanceByCustomerId(customerId);
 
