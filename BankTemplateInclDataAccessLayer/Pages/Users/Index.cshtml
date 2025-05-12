@@ -34,9 +34,6 @@
                         Email
                     </th>
                     <th>
-                        Password
-                    </th>
-                    <th>
                         Roles
                     </th>
                     <th></th>
@@ -50,16 +47,14 @@
                     <tr>
                         <td>@user.UserName</td>
                         <td>@user.Email</td>
-                        <td>@user.Password</td>
                         <th>
                             @foreach (var role in user.Roles)
                             {
                                 @role
                             }
-
                         </th>
                         <td>
-                            <a class="btn btn-primary"
+                            <a class="btn btn-success"
                                asp-page="UserImage"
                                asp-route-userId="@user.Id">
                                 <i class="fa-solid fa-user"></i>

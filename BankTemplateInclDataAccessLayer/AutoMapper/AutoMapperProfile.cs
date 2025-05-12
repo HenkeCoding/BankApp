@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BankApp.ViewModels;
 using DataAccessLayer.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Services.Infrastructure.AutoMapper;
 
@@ -13,6 +14,7 @@ public class AutoMapperProfile : Profile
         CreateMap<CustomerViewModel, Customer>()
             .ReverseMap();
 
-
+        CreateMap<IdentityUserViewModel, IdentityUser>()
+            .ReverseMap();
     }
 }

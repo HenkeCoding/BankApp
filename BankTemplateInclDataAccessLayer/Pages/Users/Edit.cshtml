@@ -2,3 +2,44 @@
 @model BankApp.Pages.Users.EditModel
 @{
 }
+
+<div class="card">
+    <div class="card-header">
+        <h1>Edit person</h1>
+    </div>
+    <div class="card-body">
+        <a class="btn btn-danger"
+           href="#"
+           data-toggle="modal"
+           data-target="#deleteModal">
+            <i class="fa-solid fa-trash"></i>
+            Delete
+        </a>
+
+        <form method="post">
+
+            <div class="form-group">
+                <label asp-for="UpdatedUserInfo.UserName">Name</label>
+                <input class="form-control" asp-for="UpdatedUserInfo.UserName">
+                <span asp-validation-for="UpdatedUserInfo.UserName" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UpdatedUserInfo.Email">Email</label>
+                <input class="form-control" asp-for="UpdatedUserInfo.Email">
+                <span asp-validation-for="UpdatedUserInfo.Email" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.NewUserRole">Role</label>
+                <select class="form-control" asp-for="@Model.NewUserRole" asp-items="@Model.Roles">
+                </select>
+                <span asp-validation-for="@Model.NewUserRole"
+                      class="field-validation-error"></span>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+</div>
