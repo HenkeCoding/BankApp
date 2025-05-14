@@ -11,52 +11,66 @@ public class HandleAccountService : IHandleAccountService
         _dbContext = dbContext;
     }
 
-    public ErrorCode Withdraw(int accountId, decimal amount)
+
+    public ErrorCode CreateTransaction(
+        int accountId,
+        DateOnly date,
+        decimal amount,
+        string type,
+        string operation
+        )
     {
-        var accountDb = _dbContext.Accounts.First(a => a.AccountId == accountId);
+        var accountDb = GetAccount(accountId);
 
-        if (accountDb.Balance < amount)
+        if (amount >= 0)
         {
-            return ErrorCode.BalanceTooLow;
+            if (amount < 100 || amount > 100000)
+            {
+                return ErrorCode.IncorrectAmount;
+            }
         }
 
-        if (amount < 100 || amount > 10000)
+        if (amount <= 0)
         {
-            return ErrorCode.IncorrectAmount;
+            if (amount > -100 || amount < -100000)
+            {
+                return ErrorCode.IncorrectAmount;
+            }
+
+            if (-amount > accountDb.Balance)
+            {
+                return ErrorCode.BalanceTooLow;
+            }
         }
 
-        accountDb.Balance -= amount;
-        _dbContext.SaveChanges();
-        return ErrorCode.OK;
-    }
-    public ErrorCode Deposit(int accountId, decimal amount, string comment)
-    {
-        var accountDb = _dbContext.Accounts.First(a => a.AccountId == accountId);
 
-        if (amount < 100 || amount > 10000)
+        if (type == string.Empty || type == null)
         {
-            return ErrorCode.IncorrectAmount;
+            return ErrorCode.EmptyType;
         }
 
-        if (comment == string.Empty)
+        if (operation == string.Empty || operation == null)
         {
-            return ErrorCode.EmptyComment;
-        }
-
-        if (comment.Length < 5)
-        {
-            return ErrorCode.CommentTooShort;
-        }
-
-        if (comment.Length > 200)
-        {
-            return ErrorCode.CommentTooLong;
+            return ErrorCode.EmptyOperation;
         }
 
         accountDb.Balance += amount;
+
+        var transaction = new Transaction
+        {
+            AccountId = accountId,
+            Date = date,
+            Type = type,
+            Operation = operation,
+            Amount = amount,
+            Balance = accountDb.Balance,
+        };
+
+        _dbContext.Transactions.Add(transaction);
         _dbContext.SaveChanges();
         return ErrorCode.OK;
     }
+
 
     public Account GetAccount(int accountId)
     {

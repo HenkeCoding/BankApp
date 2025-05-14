@@ -5,7 +5,16 @@
 }
 
 
-
+<div class="card">
+    <div class="card-header">
+        <h1>Account number @Model.AccountId</h1>
+    </div>
+    <div class="card-body">
+        Balance: @Model.Account.Balance
+        Frequency: @Model.Account.Frequency
+        Date Created: @Model.Account.Created
+    </div>
+</div>
 
 
 <div class="card">
@@ -146,6 +155,20 @@
             asp-route-accountId="@Model.AccountId" 
             asp-route-pageSize="20">
             20
+        </a>
+
+        <a class="btn btn-primary"
+           asp-page="AccountImage"
+           asp-route-accountId="@Model.AccountId"
+           asp-route-pageSize="50">
+            50
+        </a>
+
+        <a class="btn btn-primary"
+           asp-page="AccountImage"
+           asp-route-accountId="@Model.AccountId"
+           asp-route-pageSize="100">
+            100
         </a>
 
         <table class="table" id="transactions-table">

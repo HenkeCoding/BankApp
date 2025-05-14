@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.Services;
 using BankApp.ViewModels;
 using Azure;
+using DataAccessLayer.Models;
 
 namespace BankApp.Pages.AccountDB;
 
@@ -31,6 +32,8 @@ public class AccountImageModel : PageModel
 
 
     public int AccountId { get; set; }
+
+    public AccountViewModel Account { get; set; }
     public int OwnerCustomerId { get; set; }
     public CustomerViewModel OwnerCustomer { get; set; }
 
@@ -48,6 +51,12 @@ public class AccountImageModel : PageModel
     {
         var account = _accountService.GetAccount(accountId);
 
+        Account = new AccountViewModel
+        {
+            Balance = account.Balance,
+            Frequency = account.Frequency,
+            Created = account.Created
+        };
 
         var dispositions = _dispositionService.GetDispositionsByAccountId(accountId);
 
@@ -84,7 +93,7 @@ public class AccountImageModel : PageModel
 
 
         if (pageSize == 0)
-            pageSize = 10;
+            pageSize = 50;
         PageSize = pageSize;
 
 

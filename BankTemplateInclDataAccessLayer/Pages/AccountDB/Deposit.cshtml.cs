@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Identity.Client;
+using Services.Infrastructure.Validation;
 using Services.Services;
 using System.ComponentModel.DataAnnotations;
 
@@ -18,27 +20,44 @@ public class DepositModel : PageModel
     }
 
     public int AccountId { get; set; }
-    [Range(100, 10000)]
+
+    public decimal Balance { get; set; }
+
+    [Range(100, 100000)]
     public decimal Amount { get; set; }
-    public DateTime DepositDate { get; set; }
-    public string Comment { get; set; } = string.Empty;
+
+    public List<SelectListItem> Types { get; set; }
+
+    [ValidTypeAttribute]
+    public string Type { get; set; }
+
+    public string Operation { get; set; }
+
 
     public void OnGet(int accountId)
     {
         AccountId = accountId;
-        DepositDate = DateTime.Now.AddHours(1);
+        Balance = _handleAccountService.GetAccount(accountId).Balance;
+        FillTypeList();
+    }
+
+    private void FillTypeList()
+    {
+        Types = Enum.GetValues<DataAccessLayer.Models.Type>()
+            .Select(g => new SelectListItem
+            {
+                Value = g.ToString(),
+                Text = g.ToString()
+            }).ToList();
     }
 
     // Anropas vid POST-begäran
     public IActionResult OnPost(int accountId)
     {
-        if (DepositDate < DateTime.Now)
-        {
-            ModelState.AddModelError(
-    "DepositDate", "Cannot Deposit money in the past!");
-        }
+        var depositDate = DateOnly.FromDateTime(DateTime.Now);
 
-        var status = _handleAccountService.Deposit(accountId, Amount, Comment);
+        var status = _handleAccountService.CreateTransaction(accountId, depositDate, Amount, Type, Operation);
+
 
         if (ModelState.IsValid)
         {
@@ -48,19 +67,15 @@ public class DepositModel : PageModel
             }
         }
 
-        else if (status == ErrorCode.EmptyComment)
+
+        else if (status == ErrorCode.EmptyType)
         {
-            ModelState.AddModelError("Comment", "Can't leave an empty comment!");
+            ModelState.AddModelError("Type", "Can't leave an empty type!");
         }
 
-        else if (status == ErrorCode.CommentTooShort)
+        else if (status == ErrorCode.EmptyOperation)
         {
-            ModelState.AddModelError("Comment", "Comments must be at least 5 characters long");
-        }
-
-        else if (status == ErrorCode.CommentTooLong)
-        {
-            ModelState.AddModelError("Comment", "OK, thats just too many words");
+            ModelState.AddModelError("Operation", "Can't leave an empty operation!");
         }
 
         else if (status == ErrorCode.IncorrectAmount)
@@ -68,10 +83,10 @@ public class DepositModel : PageModel
             ModelState.AddModelError("Amount", "The amount must be between 100 and 10000.");
         }
 
+        Balance = _handleAccountService.GetAccount(accountId).Balance;
+        FillTypeList();
         return Page();
-
     }
-
 }
 
 

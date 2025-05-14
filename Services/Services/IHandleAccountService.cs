@@ -7,15 +7,18 @@ public enum ErrorCode
     OK,
     BalanceTooLow,
     IncorrectAmount,
-    EmptyComment,
-    CommentTooShort,
-    CommentTooLong
+    EmptyType,
+    EmptyOperation
 }
 
 public interface IHandleAccountService
 {
     Account GetAccount(int accountId);
-    ErrorCode Withdraw(int accountId, decimal amount);
-    ErrorCode Deposit(int accountId, decimal amount, string comment);
+    ErrorCode CreateTransaction(
+        int accountId,
+        DateOnly date,
+        decimal amount, 
+        string type, 
+        string operation);
 
 }
