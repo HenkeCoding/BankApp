@@ -7,82 +7,130 @@ using NuGet.Protocol.Plugins;
 using System.Diagnostics.Metrics;
 using BankApp.ViewModels;
 using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
+using Services.Infrastructure.Validation;
 
-namespace BankApp.Pages.Users
+namespace BankApp.Pages.Users;
+
+[BindProperties]
+public class EditModel : PageModel
 {
-    public class EditModel : PageModel
+    private readonly UserManager<IdentityUser> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly IMapper _mapper;
+    private readonly BankAppDataContext _dbContext;
+    public EditModel(
+        UserManager<IdentityUser> userManager,
+        RoleManager<IdentityRole> roleManager,
+        IMapper mapper,
+        BankAppDataContext dbContext
+        )
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IMapper _mapper;
-        private readonly BankAppDataContext _dbContext;
-        public EditModel(
-            UserManager<IdentityUser> userManager, 
-            RoleManager<IdentityRole> roleManager, 
-            IMapper mapper
-            , BankAppDataContext dbContext
-            )
+        _userManager = userManager;
+        _roleManager = roleManager;
+        _mapper = mapper;
+        _dbContext = dbContext;
+    }
+
+    public List<SelectListItem> RoleList { get; set; }
+
+    // Pseudocode plan:
+    // 1. Ensure UserId is set before OnPostDelete is called. 
+    // 2. In OnGet, set UserId from the query parameter.
+    // 3. In OnPostDelete, check if UserId is null or empty and handle accordingly (e.g., return to Index).
+    // 4. Optionally, add [BindProperty] to UserId to ensure model binding on POST.
+
+    public string UserId { get; set; }
+
+    public string Email { get; set; }
+
+    [ValidRoleAttribute]
+    public string UserRole { get; set; }
+
+
+    public IActionResult OnGet(string userId)
+    {
+        if (string.IsNullOrEmpty(userId))
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _mapper = mapper;
-            _dbContext = dbContext;
+            return RedirectToPage("Index");
         }
 
-        public List<SelectListItem> Roles { get; set; }
+        UserId = userId;
+        var userToUpdate = _userManager.FindByIdAsync(userId).Result;
 
-        public IdentityUser UserToUpdate { get; set; }
-
-        public IdentityUserViewModel UpdatedUserInfo { get; set; } = new IdentityUserViewModel();
-
-        public string NewUserRole { get; set; }
-        public string CurrentUserRole { get; set; }
-
-
-        public IActionResult OnGet(string userId)
+        if (userToUpdate != null)
         {
-            UserToUpdate = _userManager.FindByIdAsync(userId).Result;
+            UserRole = _userManager.GetRolesAsync(userToUpdate).Result.FirstOrDefault();
 
-            if (UserToUpdate != null)
+            Email = userToUpdate.Email;
+        }
+        else
+        {
+            return RedirectToPage("Index");
+        }
+
+        FillRoleList();
+        return Page();
+    }
+
+    private void FillRoleList()
+    {
+        RoleList = Enum.GetValues<Role>()
+            .Select(g => new SelectListItem
             {
-                CurrentUserRole = _userManager.GetRolesAsync(UserToUpdate).Result.FirstOrDefault();
+                Value = g.ToString(),
+                Text = g.ToString()
+            }).ToList();
+    }
 
-                _mapper.Map(UserToUpdate, UpdatedUserInfo);
-            }
-            else if (UserToUpdate == null)
+    public async Task<IActionResult> OnPostAsync(string userId)
+    {
+        if (ModelState.IsValid)
+        {
+            var userToUpdate = await _userManager.FindByIdAsync(userId);
+
+            if (userToUpdate == null)
             {
                 return RedirectToPage("Index");
             }
 
-            FillRoleList();
-            return Page();
-        }
+            var currentUserRoles = await _userManager.GetRolesAsync(userToUpdate);
 
-        private void FillRoleList()
-        {
-            Roles = Enum.GetValues<Role>()
-                .Select(g => new SelectListItem
-                {
-                    Value = g.ToString(),
-                    Text = g.ToString()
-                }).ToList();
-        }
-
-        public async Task<IActionResult> OnPostAsync(string userId)
-        {
-            if (ModelState.IsValid)
+            foreach (var role in currentUserRoles)
             {
-                await _userManager.RemoveFromRoleAsync(UserToUpdate, CurrentUserRole);
-                await _userManager.AddToRoleAsync(UserToUpdate, NewUserRole);
-
-                _mapper.Map(UpdatedUserInfo, UserToUpdate);
-
-                _dbContext.SaveChanges();
-                return RedirectToPage("Index");
+                await _userManager.RemoveFromRoleAsync(userToUpdate, role);
             }
 
+            await _userManager.AddToRoleAsync(userToUpdate, UserRole);
+
+            userToUpdate.Email = Email;
+            userToUpdate.UserName = Email;
+            userToUpdate.NormalizedEmail = Email.ToUpper();
+            userToUpdate.NormalizedUserName = Email.ToUpper();
+
+            _dbContext.SaveChanges();
+            ViewData["Message"] = "User successfully edited!";
             FillRoleList();
             return Page();
         }
+
+        FillRoleList();
+        return Page();
+    }
+
+    public IActionResult OnPostDelete(string userId)
+    {
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Page();
+        }
+        var user = _userManager.FindByIdAsync(userId).Result;
+        if (user != null)
+        {
+            _userManager.DeleteAsync(user);
+            ViewData["Message"] = "User successfully deleted!";
+            return RedirectToPage("Index");
+        }
+        return Page();
     }
 }

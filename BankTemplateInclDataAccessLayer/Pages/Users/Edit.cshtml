@@ -1,6 +1,7 @@
 ﻿@page
 @model BankApp.Pages.Users.EditModel
 @{
+    var successMessage = ViewData["Message"]?.ToString();
 }
 
 <div class="card">
@@ -8,6 +9,13 @@
         <h1>Edit person</h1>
     </div>
     <div class="card-body">
+        @if (!string.IsNullOrWhiteSpace(successMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                @successMessage
+            </div>
+        }
+
         <a class="btn btn-danger"
            href="#"
            data-toggle="modal"
@@ -19,27 +27,61 @@
         <form method="post">
 
             <div class="form-group">
-                <label asp-for="UpdatedUserInfo.UserName">Name</label>
-                <input class="form-control" asp-for="UpdatedUserInfo.UserName">
-                <span asp-validation-for="UpdatedUserInfo.UserName" class="field-validation-error"></span>
+                <label asp-for="Email">Email</label>
+                <input class="form-control" asp-for="Email">
+                <span asp-validation-for="Email" class="field-validation-error"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="UpdatedUserInfo.Email">Email</label>
-                <input class="form-control" asp-for="UpdatedUserInfo.Email">
-                <span asp-validation-for="UpdatedUserInfo.Email" class="field-validation-error"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="@Model.NewUserRole">Role</label>
-                <select class="form-control" asp-for="@Model.NewUserRole" asp-items="@Model.Roles">
+                <label asp-for="UserRole">Role</label>
+                <select class="form-control" asp-for="UserRole" asp-items="@Model.RoleList" >
                 </select>
-                <span asp-validation-for="@Model.NewUserRole"
-                      class="field-validation-error"></span>
+                <span asp-validation-for="UserRole" class="field-validation-error"></span>
             </div>
-
 
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
+
+        <a class="btn btn-primary"
+           asp-page="Index">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to list
+        </a>
     </div>
 </div>
+
+
+<!-- Delete Modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Are you sure you want to delete this user?
+                </h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                This action cannot be undone.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+
+                <form method="post" asp-page-handler="Delete">
+                    <input type="hidden" asp-for="UserRole" />
+                    <input type="hidden" asp-for="UserId" />
+                    <button type="submit" class="btn btn-danger">Delete User</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <partial name="Shared/_ValidationScriptsPartial" />
+}

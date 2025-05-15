@@ -23,7 +23,6 @@ public class EditModel : PageModel
         _customerService = customerService;
         _mapper = mapper;
         _countryService = countryService;
-
     }
 
     public int CustomerId { get; set; }
@@ -49,7 +48,6 @@ public class EditModel : PageModel
         }
 
         CountryId = _countryService.GetCountryByCode(customerDb.CountryCode).CountryId;
-
 
         FillGenderList();
         FillCountryList();
@@ -112,6 +110,8 @@ public class EditModel : PageModel
             _mapper.Map(UpdatedCustomerInfo, customerDb);
 
             _customerService.Update(customerDb);
+
+            ViewData["Message"] = "Customer successfully updated!";
             return RedirectToPage("Index");
         }
 

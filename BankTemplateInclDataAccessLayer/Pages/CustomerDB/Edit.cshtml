@@ -1,14 +1,24 @@
 ﻿@page
 @model BankApp.Pages.CustomerDB.EditModel
+@{
+    //Om ViewData är INTE null konverta till en sträng
+    var successMessage = ViewData["Message"]?.ToString();
+}
 
 <div class="card">
     <div class="card-header">
         <h1>Edit person</h1>
     </div>
     <div class="card-body">
+
+        @if (!string.IsNullOrWhiteSpace(successMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                @successMessage
+            </div>
+        }
+
         <form method="post">
-
-
             <div class="form-group">
                 <label asp-for="UpdatedCustomerInfo.Givenname">First name</label>
                 <input class="form-control" asp-for="UpdatedCustomerInfo.Givenname">

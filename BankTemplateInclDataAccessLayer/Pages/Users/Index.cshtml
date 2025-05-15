@@ -1,17 +1,20 @@
 ﻿@page
 @model BankApp.Pages.Users.IndexModel
 @{
+    var successMessage = ViewData["Message"]?.ToString();
 }
-
-
 
 <div class="card">
     <div class="card-header">
         <h1>All Users</h1>
     </div>
-
-
     <div class="card-body">
+        @if (!string.IsNullOrWhiteSpace(successMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                @successMessage
+            </div>
+        }
 
         <a class="btn btn-primary"
            asp-area="Identity"
@@ -19,10 +22,7 @@
             <i class='bx bxs-user-plus'></i>
             Register New User
         </a>
-
     </div>
-
-
     <div class="card-body">
         <table class="table">
             <thead>

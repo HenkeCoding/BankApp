@@ -6,15 +6,11 @@
         <h1>All Customers</h1>
     </div>
 
-
     <div class="card-body">
         <h3>Page @Model.PageNo of @Model.PageCount   </h3>
 
-
-        @*Search*@
+        <!-- Search -->
         <form method="get" id="search-form" >
-
-
             <input asp-for="@Model.Q" />
 
             Search for customers
@@ -28,13 +24,9 @@
                 by city
                 <i class="fa-solid fa-city"></i>
             </button>
-
-            
         </form>
 
-
-
-
+        <!-- PageSize buttons -->
         Results per page:
 
         <a class="btn btn-primary"
@@ -78,7 +70,7 @@
 			100
 		</a>
 
-
+        <!-- Create new customer -->
         <a class="btn btn-primary" 
            asp-page="CreateNew">
             <i class='bx bxs-user-plus'></i>
@@ -86,15 +78,24 @@
         </a>
 
 
-        <form action="/CustomerDB/CustomerImage" >
 
-            <label for="CustomerId">Find customer by ID:</label><br>
-            <input type="text" id="CustomerId" name="CustomerId" value=""><br>
-
-            <input type="submit" value="Submit" class="btn btn-secondary">
-
+        <!-- Find Customer by Id -->
+        <form 
+            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" 
+            action="/CustomerDB/CustomerImage">
+            Find customer by ID:
+            <div class="input-group">
+                <input type="text" 
+                    name="CustomerId" 
+                    class="form-control bg-light border-0 small" 
+                    placeholder="ID" 
+                    aria-label="Search" 
+                    aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <input type="submit" value="Submit" class="btn btn-secondary" />
+                </div>
+            </div>
         </form>
-
 
 
     </div>
