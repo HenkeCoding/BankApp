@@ -2308,6 +2308,7 @@ textarea.form-control {
 }
 
 .btn {
+    margin: 20px;
   display: inline-block;
   font-weight: 400;
   color: #858796;
@@ -2355,10 +2356,12 @@ fieldset:disabled a.btn {
   pointer-events: none;
 }
 
+
+
 .btn-primary {
-  color: #fff;
-  background-color: #4e73df;
-  border-color: #4e73df;
+    color: #fff;
+    background-color: #4e73df;
+    border-color: #4e73df;
 }
 
 .btn-primary:hover {
@@ -2393,9 +2396,9 @@ fieldset:disabled a.btn {
 }
 
 .btn-secondary {
-  color: #fff;
-  background-color: #858796;
-  border-color: #858796;
+    color: #fff;
+    background-color: #858796;
+    border-color: #858796;
 }
 
 .btn-secondary:hover {
@@ -2430,9 +2433,9 @@ fieldset:disabled a.btn {
 }
 
 .btn-success {
-  color: #fff;
-  background-color: #1cc88a;
-  border-color: #1cc88a;
+    color: #fff;
+    background-color: #1cc88a;
+    border-color: #1cc88a;
 }
 
 .btn-success:hover {
@@ -2467,9 +2470,9 @@ fieldset:disabled a.btn {
 }
 
 .btn-info {
-  color: #fff;
-  background-color: #36b9cc;
-  border-color: #36b9cc;
+    color: #fff;
+    background-color: #36b9cc;
+    border-color: #36b9cc;
 }
 
 .btn-info:hover {
@@ -2504,9 +2507,9 @@ fieldset:disabled a.btn {
 }
 
 .btn-warning {
-  color: #fff;
-  background-color: #f6c23e;
-  border-color: #f6c23e;
+    color: #fff;
+    background-color: #f6c23e;
+    border-color: #f6c23e;
 }
 
 .btn-warning:hover {

@@ -1,35 +1,43 @@
 ﻿@page
 @model BankApp.Pages.AccountDB.IndexModel
-
-
+@{
+    var successMessage = TempData["Message"]?.ToString();
+}
 
 <div class="card">
     <div class="card-header">
         <h1>All Accounts</h1>
     </div>
     <div class="card-body">
+        @if (!string.IsNullOrWhiteSpace(successMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                <i class="bi bi-check-circle"></i>
+                @successMessage
+            </div>
+        }
 
         Results per page:
 
-        <a class="btn btn-primary"
+        <a class="btn btn-secondary"
            asp-page="Index" 
            asp-route-pageSize="10">
             10
         </a>
 
-        <a class="btn btn-primary"
+        <a class="btn btn-secondary"
            asp-page="Index"
            asp-route-pageSize="20">
             20
         </a>
 
-        <a class="btn btn-primary"
+        <a class="btn btn-secondary"
            asp-page="Index"
            asp-route-pageSize="50">
             50
 		</a>
 
-        <a class="btn btn-primary"
+        <a class="btn btn-secondary"
            asp-page="Index"
            asp-route-pageSize="100">
             100
@@ -52,27 +60,31 @@
                     <td>@acc.Balance</td>
                     <td></td>
                     <td>
-                        <a asp-page="AccountImage" asp-route-accountId="@acc.AccountId" asp-route-pageSize="10" class="btn btn-primary">
-                            <i class="fa-solid fa-file-invoice-dollar"></i>
-                            View
+                        <a asp-page="AccountImage" asp-route-accountId="@acc.AccountId" asp-route-pageSize="10" class="btn btn-primary btn-split">
+                            <span class="icon">
+                                <i class="fa-solid fa-file-invoice-dollar"></i>
+                            </span>
+                            <span class="text">View</span>
                         </a>
                     </td>
                     <td>
-                        <a asp-page="Withdraw" asp-route-accountId="@acc.AccountId" class="btn btn-primary">
-                            <i class="fa-solid fa-circle-minus"></i>
-                            Withdraw
+                        <a asp-page="Withdraw" asp-route-accountId="@acc.AccountId" class="btn btn-warning btn-split">
+                            <span class="icon">
+                                <i class="fa-solid fa-circle-minus"></i>
+                            </span>
+                            <span class="text">Withdraw</span>
                         </a>
                     </td>
                     <td>
-                        <a asp-page="Deposit" asp-route-accountId="@acc.AccountId" class="btn btn-primary">
-                            <i class="fa-solid fa-circle-plus"></i>
-                            Deposit
+                        <a asp-page="Deposit" asp-route-accountId="@acc.AccountId" class="btn btn-warning btn-split">
+                            <span class="icon">
+                                <i class="fa-solid fa-circle-plus"></i>
+                            </span>
+                            <span class="text">Deposit</span>
                         </a>
                     </td>
-
                 </tr>
             }
-
             <tr>
                 <td>
                     @if (Model.PageNo != 1)
@@ -85,8 +97,6 @@
                         </a>
                     }
                 </td>
-
-
                 <td colspan="2">
                     @for (int i = 1; i <= Model.PageCount; i++)
                     {
@@ -97,8 +107,6 @@
                         </a>
                     }
                 </td>
-
-
                 <td>
                     @if (Model.PageNo != Model.PageCount)
                     {
@@ -110,8 +118,6 @@
                         </a>
                     }
                 </td>
-
-
             </tr>
         </table>
     </div>

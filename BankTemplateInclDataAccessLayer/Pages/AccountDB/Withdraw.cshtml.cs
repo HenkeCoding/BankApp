@@ -68,7 +68,7 @@ public class WithdrawModel : PageModel
         {
             if (status == ErrorCode.OK)
             {
-                return RedirectToPage("Index");
+                return RedirectToPage("Index", TempData["Message"] = $"{Amount} has been successfully withdrawn from Account number {accountId}.");
             }
         }
 

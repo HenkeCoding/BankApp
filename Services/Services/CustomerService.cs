@@ -1,8 +1,5 @@
-﻿using AutoMapper;
-using DataAccessLayer.Models;
+﻿using DataAccessLayer.Models;
 using Services.Infrastructure.Paging;
-using System.Net.Mail;
-using System.Reflection.Emit;
 
 namespace Services.Services;
 public class CustomerService : ICustomerService
@@ -77,14 +74,23 @@ public class CustomerService : ICustomerService
 
     public Customer GetCustomer(int customerId)
     {
-        return _dbContext.Customers.First(a => a.CustomerId == customerId);
+        var customerToReturn = new Customer();
+        foreach (var customer in _dbContext.Customers)
+        {
+            if (customer.CustomerId == customerId)
+            {
+                customerToReturn = customer;
+            }
+        }
+
+        //customer = _dbContext.Customers.First(a => a.CustomerId == customerId);
+
+        return customerToReturn;
     }
 
     public void Update(Customer customer)
     {
         _dbContext.SaveChanges();
     }
-
-
 }
 

@@ -63,7 +63,7 @@ public class DepositModel : PageModel
         {
             if (status == ErrorCode.OK)
             {
-                return RedirectToPage("Index");
+                return RedirectToPage("Index", TempData["Message"] = $"{Amount} has been successfully deposited to Account number {accountId}.");
             }
         }
 

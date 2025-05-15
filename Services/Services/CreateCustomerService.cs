@@ -12,7 +12,7 @@ public class CreateCustomerService : ICreateCustomerService
         _dbContext = dbContext;
     }
 
-    public void CreateCustomer(
+    public Customer CreateCustomer(
     string gender,
     string givenname,
     string surname,
@@ -79,5 +79,6 @@ public class CreateCustomerService : ICreateCustomerService
 
         _dbContext.SaveChanges();
 
+        return customer;
     }
 }

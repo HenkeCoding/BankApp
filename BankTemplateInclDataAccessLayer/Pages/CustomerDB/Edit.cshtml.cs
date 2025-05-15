@@ -111,8 +111,7 @@ public class EditModel : PageModel
 
             _customerService.Update(customerDb);
 
-            ViewData["Message"] = "Customer successfully updated!";
-            return RedirectToPage("Index");
+            return RedirectToPage("Index", TempData["Message"] = $"Customer number {customerDb.CustomerId} was updated.");
         }
 
         FillGenderList();

@@ -159,7 +159,7 @@ public class RegisterModel : PageModel
                 if (_userManager.Options.SignIn.RequireConfirmedAccount)
                 {
                     // Corrected: Remove "/Pages" and use the page name relative to Pages root
-                    return RedirectToPage("/Users/Index");
+                    return RedirectToPage("/Users/Index", TempData["Message"] = "User successfully registered!");
                 }
                 else
                 {

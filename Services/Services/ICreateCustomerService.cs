@@ -1,8 +1,10 @@
-﻿namespace Services.Services;
+﻿using DataAccessLayer.Models;
+
+namespace Services.Services;
 
 public interface ICreateCustomerService
 {
-    void CreateCustomer(
+    Customer CreateCustomer(
     string gender,
     string givenname,
     string surname,

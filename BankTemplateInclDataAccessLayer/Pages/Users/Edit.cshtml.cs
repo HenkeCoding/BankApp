@@ -1,13 +1,9 @@
+using AutoMapper;
 using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using NuGet.Protocol.Plugins;
-using System.Diagnostics.Metrics;
-using BankApp.ViewModels;
-using AutoMapper;
-using Microsoft.IdentityModel.Tokens;
 using Services.Infrastructure.Validation;
 
 namespace BankApp.Pages.Users;
@@ -109,8 +105,7 @@ public class EditModel : PageModel
             userToUpdate.NormalizedUserName = Email.ToUpper();
 
             _dbContext.SaveChanges();
-            ViewData["Message"] = "User successfully edited!";
-            FillRoleList();
+            ViewData["Message"] = "User successfully updated!";
             return Page();
         }
 
@@ -128,8 +123,7 @@ public class EditModel : PageModel
         if (user != null)
         {
             _userManager.DeleteAsync(user);
-            ViewData["Message"] = "User successfully deleted!";
-            return RedirectToPage("Index");
+            return RedirectToPage("Index", TempData["Message"] = "User successfully deleted!");
         }
         return Page();
     }

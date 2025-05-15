@@ -20,8 +20,6 @@ public class IndexModel : PageModel
 
     public List<IdentityUserViewModel> Users { get; set; }
 
-
-
     public async Task OnGetAsync()
     {
         List<IdentityUser> identityUsers = _userManager.Users.ToList();

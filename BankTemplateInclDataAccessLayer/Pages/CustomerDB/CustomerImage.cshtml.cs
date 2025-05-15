@@ -41,12 +41,17 @@ public class CustomerImageModel : PageModel
 
     public IActionResult OnGet(int customerId)
     {
-        if (customerId == null || customerId == 0)
+        if (customerId == null)
         {
-            return RedirectToPage("Index");
+            return RedirectToPage("Index", TempData["ErrorMessage"] = $"Invalid ID.");
         }
 
         var CustomerDb = _customerService.GetCustomer(customerId);
+
+        if (CustomerDb.CustomerId == 0)
+        {
+            return RedirectToPage("Index", TempData["ErrorMessage"] = $"No customer was found with that ID.");
+        }
 
         CustomerToView = new CustomerViewModel();
 

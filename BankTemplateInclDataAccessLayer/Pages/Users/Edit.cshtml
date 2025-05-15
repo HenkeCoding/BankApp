@@ -12,41 +12,53 @@
         @if (!string.IsNullOrWhiteSpace(successMessage))
         {
             <div class="alert alert-success" role="alert">
+                <i class="bi bi-check-circle"></i>
                 @successMessage
             </div>
         }
 
-        <a class="btn btn-danger"
-           href="#"
-           data-toggle="modal"
-           data-target="#deleteModal">
-            <i class="fa-solid fa-trash"></i>
-            Delete
-        </a>
-
-        <form method="post">
-
-            <div class="form-group">
-                <label asp-for="Email">Email</label>
-                <input class="form-control" asp-for="Email">
-                <span asp-validation-for="Email" class="field-validation-error"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="UserRole">Role</label>
-                <select class="form-control" asp-for="UserRole" asp-items="@Model.RoleList" >
-                </select>
-                <span asp-validation-for="UserRole" class="field-validation-error"></span>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Update</button>
-        </form>
-
-        <a class="btn btn-primary"
-           asp-page="Index">
-            <i class="fa-solid fa-arrow-left"></i>
-            Back to list
-        </a>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <form method="post">
+                    <div class="form-group">
+                        <label asp-for="Email">Email</label>
+                        <input class="form-control" asp-for="Email">
+                        <span asp-validation-for="Email" class="field-validation-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserRole">Role</label>
+                        <select class="form-control" asp-for="UserRole" asp-items="@Model.RoleList">
+                        </select>
+                        <span asp-validation-for="UserRole" class="field-validation-error"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </li>
+            <li class="list-group-item">
+                <a class="btn btn-danger btn-split"
+                   href="#"
+                   data-toggle="modal"
+                   data-target="#deleteModal">
+                    <span class="icon">
+                        <i class="fa-solid fa-trash"></i>
+                    </span>
+                    <span class="text">
+                        Delete User
+                    </span>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a class="btn btn-info btn-split"
+                   asp-page="Index">
+                    <span class="icon">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </span>
+                    <span class="text">
+                        Back to list
+                    </span>
+                </a>
+            </li>
+        </ul>
     </div>
 </div>
 

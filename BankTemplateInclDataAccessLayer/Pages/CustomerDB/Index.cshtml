@@ -1,106 +1,136 @@
 ﻿@page
 @model BankApp.Pages.CustomerDB.IndexModel
+@{
+    var successMessage = TempData["Message"]?.ToString();
+    var errorMessage = TempData["ErrorMessage"]?.ToString();
+}
 
 <div class="card">
     <div class="card-header">
         <h1>All Customers</h1>
     </div>
-
     <div class="card-body">
+        @if (!string.IsNullOrWhiteSpace(successMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                <i class="bi bi-check-circle"></i>
+                @successMessage
+            </div>
+        }
+        @if (!string.IsNullOrWhiteSpace(errorMessage))
+        {
+            <div class="alert alert-danger" role="alert">
+                <i class="bi bi-x-circle"></i>
+                @errorMessage
+            </div>
+        }
+
         <h3>Page @Model.PageNo of @Model.PageCount   </h3>
 
-        <!-- Search -->
-        <form method="get" id="search-form" >
-            <input asp-for="@Model.Q" />
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <!-- Search -->
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="get" id="search-form">
 
-            Search for customers
+                    Search for customers
 
-            <button id="search-button-name" class="btn btn-secondary">
-                by name
-                <i class="fa-solid fa-signature"></i>
-            </button>
+                    <input asp-for="@Model.Q"
+                           type="text"
+                           class="form-control bg-light border-0 small"
+                           aria-describedby="basic-addon2" />
 
-            <button id="search-button-city"  class="btn btn-secondary" >
-                by city
-                <i class="fa-solid fa-city"></i>
-            </button>
-        </form>
+                    <button id="search-button-name" class="btn btn-success btn-split">
+                        <span class="text">By Name</span>
+                        <span class="icon">
+                            <i class="fa-solid fa-signature"></i>
+                        </span>
+                    </button>
 
-        <!-- PageSize buttons -->
-        Results per page:
+                    <button id="search-button-city" class="btn btn-warning btn-split">
+                        <span class="text">By City</span>
+                        <span class="icon">
+                            <i class="fa-solid fa-city"></i>
+                        </span>
+                    </button>
+                </form>
+            </li>
+            <li class="list-group-item">
+                <!-- PageSize buttons -->
+                <div>
+                    Results per page:
 
-        <a class="btn btn-primary"
-           asp-page="/CustomerDB/Index"
-           asp-route-q="@Model.Q"
-           asp-route-searchSubject="@Model.SearchSubject"
-           asp-route-sortColumn="@Model.SortColumn"
-           asp-route-sortOrder="@Model.SortOrder"
-           asp-route-pageNo="@Model.PageNo"
-           asp-route-pageSize="10">
-            10
-        </a>
-        <a class="btn btn-primary"
-           asp-page="/CustomerDB/Index"
-           asp-route-q="@Model.Q"
-           asp-route-searchSubject="@Model.SearchSubject"
-           asp-route-sortColumn="@Model.SortColumn"
-           asp-route-sortOrder="@Model.SortOrder"
-           asp-route-pageNo="@Model.PageNo"
-           asp-route-pageSize="20">
-            20
-        </a>
-        <a class="btn btn-primary"
-           asp-page="/CustomerDB/Index"
-           asp-route-q="@Model.Q"
-           asp-route-searchSubject="@Model.SearchSubject"
-           asp-route-sortColumn="@Model.SortColumn"
-           asp-route-sortOrder="@Model.SortOrder"
-           asp-route-pageNo="@Model.PageNo"
-           asp-route-pageSize="50">
-            50
-        </a>
-        <a class="btn btn-primary"
-		   asp-page="/CustomerDB/Index"
-           asp-route-q="@Model.Q"
-           asp-route-searchSubject="@Model.SearchSubject"
-		   asp-route-sortColumn="@Model.SortColumn"
-		   asp-route-sortOrder="@Model.SortOrder"
-		   asp-route-pageNo="@Model.PageNo"
-		   asp-route-pageSize="100">
-			100
-		</a>
-
-        <!-- Create new customer -->
-        <a class="btn btn-primary" 
-           asp-page="CreateNew">
-            <i class='bx bxs-user-plus'></i>
-            Create New Customer
-        </a>
-
-
-
-        <!-- Find Customer by Id -->
-        <form 
-            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" 
-            action="/CustomerDB/CustomerImage">
-            Find customer by ID:
-            <div class="input-group">
-                <input type="text" 
-                    name="CustomerId" 
-                    class="form-control bg-light border-0 small" 
-                    placeholder="ID" 
-                    aria-label="Search" 
-                    aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <input type="submit" value="Submit" class="btn btn-secondary" />
+                    <a class="btn btn-secondary"
+                       asp-page="/CustomerDB/Index"
+                       asp-route-q="@Model.Q"
+                       asp-route-searchSubject="@Model.SearchSubject"
+                       asp-route-sortColumn="@Model.SortColumn"
+                       asp-route-sortOrder="@Model.SortOrder"
+                       asp-route-pageNo="@Model.PageNo"
+                       asp-route-pageSize="10">
+                        10
+                    </a>
+                    <a class="btn btn-secondary"
+                       asp-page="/CustomerDB/Index"
+                       asp-route-q="@Model.Q"
+                       asp-route-searchSubject="@Model.SearchSubject"
+                       asp-route-sortColumn="@Model.SortColumn"
+                       asp-route-sortOrder="@Model.SortOrder"
+                       asp-route-pageNo="@Model.PageNo"
+                       asp-route-pageSize="20">
+                        20
+                    </a>
+                    <a class="btn btn-secondary"
+                       asp-page="/CustomerDB/Index"
+                       asp-route-q="@Model.Q"
+                       asp-route-searchSubject="@Model.SearchSubject"
+                       asp-route-sortColumn="@Model.SortColumn"
+                       asp-route-sortOrder="@Model.SortOrder"
+                       asp-route-pageNo="@Model.PageNo"
+                       asp-route-pageSize="50">
+                        50
+                    </a>
+                    <a class="btn btn-secondary"
+                       asp-page="/CustomerDB/Index"
+                       asp-route-q="@Model.Q"
+                       asp-route-searchSubject="@Model.SearchSubject"
+                       asp-route-sortColumn="@Model.SortColumn"
+                       asp-route-sortOrder="@Model.SortOrder"
+                       asp-route-pageNo="@Model.PageNo"
+                       asp-route-pageSize="100">
+                        100
+                    </a>
                 </div>
-            </div>
-        </form>
-
-
+            </li>
+            <li class="list-group-item">
+                <!-- Create new customer -->
+                <a class="btn btn-primary btn-split"
+                   asp-page="CreateNew">
+                    <span class="icon">
+                        <i class="fa-solid fa-user-plus"></i>
+                    </span>
+                    <span class="text">Create New Customer</span>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <!-- Find Customer by Id -->
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+                      action="/CustomerDB/CustomerImage">
+                    Find customer by ID:
+                    <div class="input-group">
+                        <input type="text"
+                               name="CustomerId"
+                               class="form-control bg-light border-0 small"
+                               placeholder="ID"
+                               aria-label="Search"
+                               aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <input type="submit" value="Submit" class="btn btn-success" />
+                        </div>
+                    </div>
+                </form>
+            </li>
+        </ul>
     </div>
-
-
     <div class="card-body">
         <table class="table">
             <thead>
@@ -177,7 +207,6 @@
                 </tr>
             </thead>
             <tbody>
-
                 @foreach (var customer in Model.Customers)
                 {
                     <tr>
@@ -187,25 +216,27 @@
                         <td>@customer.Streetaddress</td>
                         <td>@customer.NationalId</td>
                         <td>
-                            <a class="btn btn-primary"
+                            <a class="btn btn-primary btn-split"
                                 asp-page="CustomerImage"
                                asp-route-customerId="@customer.ViewId">
-                                <i class="fa-solid fa-user"></i>
-                                View
+                                <span class="icon">
+                                    <i class="fa-solid fa-user"></i>
+                                </span>
+                                <span class="text">View</span>
                             </a>
                         </td>
                         <td>
-                            <a class="btn btn-primary"
+                            <a class="btn btn-success btn-split"
                                 asp-page="Edit"
                                asp-route-customerId="@customer.ViewId">
-                                <i class="fa-solid fa-user-pen"></i>
-                                Edit
-                                </a>
+                               <span class="icon">
+                                    <i class="fa-solid fa-user-pen"></i>
+                                </span>
+                                <span class="text">Edit</span>
+                            </a>
                         </td>
-
                     </tr>
                 }
-
                 <!-- Paging -->
                 <tr>
                     <td>
@@ -225,8 +256,6 @@
                             </a>
                         }
                     </td>
-
-
                     <td colspan="2">
                         @for (int i = 1; i <= Model.PageCount; i++)
                         {
@@ -243,8 +272,6 @@
                             </a>
                         }
                     </td>
-
-
                     <td>
                         @if (Model.PageNo != Model.PageCount)
                         {
@@ -262,12 +289,8 @@
                             </a>
                         }
                     </td>
-
-
                 </tr>
-
             </tbody>
-
         </table>
     </div>
 </div>

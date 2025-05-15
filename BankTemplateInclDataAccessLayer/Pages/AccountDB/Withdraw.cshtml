@@ -1,7 +1,5 @@
 ﻿@page
 @model BankApp.Pages.AccountDB.WithdrawModel
-@{
-}
 
 <h1>Withdraw</h1>
 <h3>Balance: @Model.Balance kr</h3>
@@ -25,9 +23,18 @@
         <input type="text" class="form-control" asp-for="Operation" />
         <span class="field-validation-error" asp-validation-for="Operation"></span>
     </div>
-
     <button type="submit" class="btn btn-primary">Withdraw</button>
 </form>
+
+<a class="btn btn-info btn-split"
+   asp-page="/AccountDB/Index">
+    <span class="icon">
+    <i class="fa-solid fa-arrow-left"></i>
+    </span>
+    <span class="text">
+        Back to List
+    </span>
+</a>
 
 @section Scripts
 {

@@ -1,7 +1,7 @@
 ﻿@page
 @model BankApp.Pages.Users.IndexModel
 @{
-    var successMessage = ViewData["Message"]?.ToString();
+    var successMessage = TempData["Message"]?.ToString();
 }
 
 <div class="card">
@@ -12,15 +12,20 @@
         @if (!string.IsNullOrWhiteSpace(successMessage))
         {
             <div class="alert alert-success" role="alert">
+                <i class="bi bi-check-circle"></i>
                 @successMessage
             </div>
         }
 
-        <a class="btn btn-primary"
+        <a class="btn btn-primary btn-split"
            asp-area="Identity"
            asp-page="/Account/Register">
-            <i class='bx bxs-user-plus'></i>
-            Register New User
+            <span class="icon">
+                <i class='bx bxs-user-plus'></i>
+            </span>
+            <span class="text">
+                Register New User
+            </span>
         </a>
     </div>
     <div class="card-body">
@@ -54,24 +59,31 @@
                             }
                         </th>
                         <td>
-                            <a class="btn btn-success"
+                            <a class="btn btn-primary btn-split"
                                asp-page="UserImage"
                                asp-route-userId="@user.Id">
-                                <i class="fa-solid fa-user"></i>
-                                View
+                                <span class="icon">
+                                    <i class="fa-solid fa-user"></i>
+                                </span>
+                                <span class="text">
+                                    View
+                                </span>
                             </a>
                         </td>
                         <td>
-                            <a class="btn btn-primary"
+                            <a class="btn btn-success btn-split"
                                asp-page="Edit"
                                asp-route-userId="@user.Id">
-                                <i class="fa-solid fa-user-pen"></i>
-                                Edit
+                                <span class="icon">
+                                    <i class="fa-solid fa-user-pen"></i>
+                                </span>
+                                <span class="text">
+                                    Edit
+                                </span>
                             </a>
                         </td>
                     </tr>
                 }
-
             </tbody>
         </table>
     </div>

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Identity.Client;
 using Services.Infrastructure.Validation;
 using Services.Services;
 using System.ComponentModel.DataAnnotations;
@@ -114,7 +115,7 @@ public class CreateNewModel : PageModel
                 return Page();
             }
 
-            _createCustomerService.CreateCustomer(
+            var customerJustCreated = _createCustomerService.CreateCustomer(
                 CustomerToCreate.Gender,
                 CustomerToCreate.Givenname,
                 CustomerToCreate.Surname,
@@ -134,15 +135,12 @@ public class CreateNewModel : PageModel
                 AccountFrequency
             );
 
-
-            return RedirectToPage("Index");
+            return RedirectToPage("Index", TempData["Message"] = $"A new customer was successfully created with the ID: {customerJustCreated.CustomerId}");
         }
-
 
         FillGenderList();
         FillCountryList();
         FillFrequencyList();
         return Page();
     }
-
 }

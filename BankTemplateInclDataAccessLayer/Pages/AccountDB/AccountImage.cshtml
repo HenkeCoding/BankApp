@@ -1,9 +1,5 @@
 ﻿@page
 @model BankApp.Pages.AccountDB.AccountImageModel
-@{
-
-}
-
 
 <div class="card">
     <div class="card-header">
@@ -16,25 +12,24 @@
     </div>
 </div>
 
-
 <div class="card">
     <div class="card-header">
         Account owner: @Model.OwnerCustomer.Givenname @Model.OwnerCustomer.Surname
     </div>
     <div class="card-body">
-        <a 
+        <a class="btn btn-primary btn-split"
            asp-page="/CustomerDB/CustomerImage"
            asp-route-customerId="@Model.OwnerCustomerId"
            asp-route-pageSize="10">
-            <div class="btn btn-primary">
-                View account owner
+            <span class="icon">
                 <i class="fa-solid fa-user"></i>
-            </div>
+            </span>
+            <span class="text">
+                View account owner
+            </span>
         </a>
     </div>
 </div>
-
-
 
 @if (Model.DisponentCustomerId != 0)
 {
@@ -43,19 +38,20 @@
             Account disponent: @Model.DisponentCustomer.Givenname @Model.DisponentCustomer.Surname
         </div>
         <div class="card-body">
-            <a 
+            <a class="btn btn-primary btn-split"
                asp-page="/CustomerDB/CustomerImage"
                asp-route-customerId="@Model.DisponentCustomerId"
                asp-route-pageSize="10">
-                <div class="btn btn-primary">
-                    View account disponent
+                <span class="icon">
                     <i class="fa-solid fa-user"></i>
-                </div>
+                </span>
+                <span class="text">
+                    View account disponent
+                </span>
             </a>
         </div>
     </div>
 }
-
 
 @if (Model.Cards.Any() == true)
 {
@@ -119,12 +115,10 @@
                         </td>
                     </tr>
                 }
-
             </table>
         </div>
     </div>
 }
-
 
 <div class="card">
     <div class="card-header">
@@ -137,34 +131,34 @@
 
 		Number of transactions per page:
 
-        <a class="btn btn-primary"
+        <a class="btn btn-secondary"
             asp-page="AccountImage" 
             asp-route-accountId="@Model.AccountId" 
             asp-route-pageSize="5">
             5
         </a>
 
-        <a class="btn btn-primary"
+        <a class="btn btn-secondary"
             asp-page="AccountImage" asp-route-accountId="@Model.AccountId" 
             asp-route-pageSize="10">
             10
         </a>
 
-        <a class="btn btn-primary"
+        <a class="btn btn-secondary"
             asp-page="AccountImage" 
             asp-route-accountId="@Model.AccountId" 
             asp-route-pageSize="20">
             20
         </a>
 
-        <a class="btn btn-primary"
+        <a class="btn btn-secondary"
            asp-page="AccountImage"
            asp-route-accountId="@Model.AccountId"
            asp-route-pageSize="50">
             50
         </a>
 
-        <a class="btn btn-primary"
+        <a class="btn btn-secondary"
            asp-page="AccountImage"
            asp-route-accountId="@Model.AccountId"
            asp-route-pageSize="100">
@@ -181,8 +175,6 @@
                 <th>Symbol</th>
                 <th>Bank</th>
             </tr>
-
-
         </table>
         <a class="btn btn-primary" href="javascript:showMore();">
             <i class='bx bx-chevron-down'></i>
@@ -191,9 +183,14 @@
     </div>
 </div>
 
-<a class="btn btn-primary"
+<a class="btn btn-info btn-split"
    asp-page="/AccountDB/Index">
-    Back to List
+    <span class="icon">
+        <i class="fa-solid fa-arrow-left"></i>
+    </span>
+    <span class="text">
+        Back to List
+    </span>
 </a>
 
 @section Scripts
