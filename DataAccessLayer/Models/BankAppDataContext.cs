@@ -38,8 +38,8 @@ public partial class BankAppDataContext : IdentityDbContext
     // Note to self: Glöm inte!!!
     // Du behöver kommentera bort OnConfiguring för att publish ska fungera
 
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //    => optionsBuilder.UseSqlServer("Server=localhost;Database=BankAppData;Trusted_Connection=True;TrustServerCertificate=true;");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer("Server=localhost;Database=BankAppData;Trusted_Connection=True;TrustServerCertificate=true;");
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
