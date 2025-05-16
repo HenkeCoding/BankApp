@@ -31,6 +31,8 @@ namespace AntiMoneyLaunderer
 
             string[] countryCodesArray = countryCodesList.ToArray();
 
+            Console.WriteLine("Choose a country to save suspicious transactions for.");
+            Console.WriteLine("The transactions will be saved in a text file in the folder: (the root directory)/AntiMoneyLaunderer/textfiles.");
 
             var functionChoiceInput = AnsiConsole.Prompt(
         new SelectionPrompt<string>()
@@ -45,16 +47,12 @@ namespace AntiMoneyLaunderer
             }
             else
             {
-                Console.WriteLine($"You selected: {functionChoiceInput}");
-
                 Console.WriteLine($"Checking for suspicious transactions for country: {functionChoiceInput}...");
 
                 transactionChecker.IsTransactionSuspicious(functionChoiceInput, _dbContext);
 
                 Console.WriteLine("Transaction check complete.");
             }
-
-
         }
     }
 }
