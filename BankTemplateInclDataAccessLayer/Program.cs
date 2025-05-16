@@ -43,7 +43,6 @@ builder.Services.AddDbContext<BankAppDataContext>(options =>
 
 var app = builder.Build();
 
-
 // Behövs för Azure!?
 
 using (var scope = app.Services.CreateScope())
@@ -55,8 +54,6 @@ using (var scope = app.Services.CreateScope())
         dbContext.Database.Migrate();
     }
 }
-
-
 
 using (var scope = app.Services.CreateScope())
 {
@@ -85,7 +82,5 @@ app.MapStaticAssets();
 app.UseResponseCaching();
 app.MapRazorPages()
    .WithStaticAssets();
-
-
 
 app.Run();

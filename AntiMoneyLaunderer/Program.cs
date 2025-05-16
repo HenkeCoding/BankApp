@@ -11,6 +11,8 @@ var builder = new ConfigurationBuilder()
 
 var config = builder.Build();
 
+
+
 var options = new DbContextOptionsBuilder<BankAppDataContext>();
 
 var connectionString = config.GetConnectionString("DefaultConnection");

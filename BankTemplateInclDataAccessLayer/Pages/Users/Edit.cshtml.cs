@@ -1,5 +1,6 @@
 using AutoMapper;
 using DataAccessLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,6 +10,7 @@ using Services.Infrastructure.Validation;
 namespace BankApp.Pages.Users;
 
 [BindProperties]
+[Authorize(Roles = "Admin")]
 public class EditModel : PageModel
 {
     private readonly UserManager<IdentityUser> _userManager;
